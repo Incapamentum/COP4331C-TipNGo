@@ -1,0 +1,19 @@
+{
+  "name": "cop4331c-tipngo",
+  "version": "1.0.0",
+  "description": "Tip-giving application",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Incapamentum/COP4331C-TipNGo.git"
+  },
+  "author": "TeamSixStar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Incapamentum/COP4331C-TipNGo/issues"
+  },
+  "homepage": "https://github.com/Incapamentum/COP4331C-TipNGo#readme"
+}
