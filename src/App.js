@@ -15,7 +15,7 @@ class App extends Component {
             <Router>
                 <div className="container">
                     <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                        <a class="navbar-brand" href="https://tip-n-go.herokuapp.com/" target="_blank">
+                        <a className="navbar-brand" href="https://tip-n-go.herokuapp.com/" target="_blank">
                             <img src={logo} width="80" height="50" alt="Tip'N'Go" />
                         </a>
                         <Link to="/" className="navbar-brand">Tip'N'Go</Link>
