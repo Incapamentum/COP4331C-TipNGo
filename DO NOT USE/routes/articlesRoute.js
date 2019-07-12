@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const ObjectId = require('mongoose').Types.ObjectId;
 
 const Article = require('../models/articlesModel.js');
-const config = require('../config.js');
+const config = require('../../config.js');
 
 let router = express.Router();
 

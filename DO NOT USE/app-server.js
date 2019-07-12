@@ -4,9 +4,9 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const dotenv = require('dotenv').config();
 
-const articles = require('./routes/articlesRoute.js');
-const users = require('./routes/usersRoute.js');
-const config = require('./config.js');
+const articles = require('../routes/articlesRoute.js');
+const users = require('../routes/usersRoute.js');
+const config = require('../config.js');
 
 const MONGODB_URI = config.mongodburi || 'mongodb://user:password1@ds247827.mlab.com:47827/heroku_9lgcjlsf';
 const PORT = process.env.PORT || 5000;
