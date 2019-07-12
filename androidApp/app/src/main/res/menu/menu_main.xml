@@ -1,0 +1,20 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="online.teamsixstar.tipngo.tipper.TipperHome">
+    <item
+        android:id="@+id/logout"
+        android:title="Logout"
+        android:orderInCategory="2"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="1"
+        android:title="@string/action_settings"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/about"
+        android:title="About"
+        android:orderInCategory="10"
+        app:showAsAction="never"/>
+</menu>

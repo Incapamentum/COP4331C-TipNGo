@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">TipnGo</string>
+    <string name="action_settings">Settings</string>
+    <string name="tipperLoginButt">Login</string>
+    <string name="tipperRegisterButt">Register</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="username">Username</string>
+    <string name="welcome_tipper">Welcome Tipper</string>
+    <string name="welcome_tippee">Welcome Tippee</string>
+    <string name="welcome_tipper_button">I\'ll be Giving Tips</string>
+    <string name="welcome_tippee_button">I\'ll be Receiving Tips</string>
+    <string name="welcome_title">Welcome to Tip n\' Go</string>
+    <string name="tipper_register_title">New Tipper</string>
+    <string name="tippee_register_title">New Tippee</string>
+    <string name="tipper_balance_message">Your Balance is: </string>
+    <string name="settings">Settings</string>
+    <string name="accounts">Accounts</string>
+    <string name="logout">Logout</string>
+    <string name="recent_activity_title">Recent Activity</string>
+</resources>
