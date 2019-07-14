@@ -8,7 +8,7 @@ class Landing extends Component {
                 <div className="row">
                     <div className="col s12 center-align">
                         <h4>
-                            <b>Halt!</b> This is the landing page for{" "}
+                            <b>Welcome!</b> This is the landing page for{" "}
                             <span style={{ fontFamily: "monospace" }}>Tip'N'Go </span>
                             by TeamSixStar
                         </h4>
