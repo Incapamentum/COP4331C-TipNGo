@@ -1,12 +1,23 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const cors = require('cors');
+//const cors = require('cors');
 const mongoose = require('mongoose');
-const localPORT = 8080;
+const passport = require("passport");
 
-app.use(cors());
-app.use(bodyParser.json());
+const users = require("./routes/api/users");
+
+//app.use(cors());
+//app.use(bodyParser.json());
+
+// Bodyparser middleware
+app.use(
+    bodyParser.urlencoded({
+        extended: false
+    })
+);
+
+const localPORT = 8080;
 
 //Deployment version: connects to mLab//////////////////////////////////////////////////////////////////////////////
 const mongoURI = require("./config/keys").mongoURI;
@@ -17,6 +28,15 @@ mongoose
     )
     .then( () => console.log("MongoDB successfully connected"))
     .catch(err => console.log(err));
+
+// Passport middleware
+app.use(passport.initialize());
+
+// Passport config
+require("./config/passport")(passport);
+
+// Routes
+app.use("/api/users", users);
 
 const port = process.env.PORT || localPORT;
 app.listen(port, () => console.log(`Server is running on port ${port}`));
