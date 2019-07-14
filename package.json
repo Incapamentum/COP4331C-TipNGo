@@ -1,7 +1,7 @@
 {
   "name": "tipngo",
   "version": "1.0.0",
-  "description": "",
+  "description": "Tip-giving app",
   "main": "server.js",
   "scripts": {
     "client-install": "npm install --prefix client",
@@ -36,6 +36,6 @@
     "validator": "^11.1.0"
   },
   "keywords": [],
-  "author": "",
+  "author": "TeamSixStar",
   "license": "ISC"
 }

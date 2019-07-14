@@ -1,15 +1,13 @@
-const express = require('express');
-const app = express();
-const bodyParser = require('body-parser');
-//const cors = require('cors');
-const mongoose = require('mongoose');
+const express = require("express");
+const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
 const passport = require("passport");
-const path = require("path");
+
+const path = require("path"); // for production build
 
 const users = require("./routes/api/users");
 
-//app.use(cors());
-//app.use(bodyParser.json());
+const app = express();
 
 // Bodyparser middleware
 app.use(
@@ -17,17 +15,17 @@ app.use(
         extended: false
     })
 );
+app.use(bodyParser.json());
 
+// Database config
 const localPORT = 5000;
-
-//Deployment version: connects to mLab//////////////////////////////////////////////////////////////////////////////
-const mongoURI = require("./config/keys").mongoURI;
+const mongoURI = process.env.MONGODB_URI;
 
 mongoose
     .connect(
         mongoURI, {useNewUrlParser: true}
     )
-    .then( () => console.log("MongoDB successfully connected"))
+    .then(() => console.log("MongoDB successfully connected"))
     .catch(err => console.log(err));
 
 // Passport middleware
@@ -50,18 +48,5 @@ if (process.env.NODE_ENV === "production") {
 }
 
 const port = process.env.PORT || localPORT;
+
 app.listen(port, () => console.log(`Server is running on port ${port}`));
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-// Testing version: connects to local database (if you have a local database at the declared location)//////////////
-// mongoose.connect('mongodb://127.0.0.1:27017/users', { useNewUrlParser: true });
-// const connection = mongoose.connection;
-
-// connection.once('open', function() {
-//     console.log("MogoDB connection established");
-// });
-
-// app.listen(PORT, function() {
-//     console.log("Server is running on port " + PORT);
-// });
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
