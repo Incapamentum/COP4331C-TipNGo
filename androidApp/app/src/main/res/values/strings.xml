@@ -19,4 +19,12 @@
     <string name="accounts">Accounts</string>
     <string name="logout">Logout</string>
     <string name="recent_activity_title">Recent Activity</string>
+    <string name="title_location_permission">Location Permission</string>
+    <string name="text_location_permission">Please allow access to locations</string>
+    <string name="ok">OK</string>
+    <string name="search_by_location_title">Search by Location</string>
+    <string name="scan_qr_code_title">Scan QR Code</string>
+    <string name="search_by_name">Search by Name</string>
+    <string name="search">Search</string>
+    <string name="qr_message">Please focus on QR code</string>
 </resources>
