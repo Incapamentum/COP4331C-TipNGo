@@ -1,0 +1,122 @@
+[33mcommit 66934ef81067329cfb4c087b1a87d68be4bd0e8c[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: dani8899 <ramdaniel593@gmail.com>
+Date:   Fri Jul 12 01:09:58 2019 -0400
+
+    Adding android app project
+
+[33mcommit 9337e7feb9431126694cacbc1869f3b82c054c55[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/androidApp[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Merge: 7b6f4f5 073a34a
+Author: dani8899 <ramdaniel593@gmail.com>
+Date:   Fri Jul 12 01:02:45 2019 -0400
+
+    Merge pull request #1 from Incapamentum/master
+    
+    Updating my fork
+
+[33mcommit 073a34ab4189061a39d3a3722271f2e7d632bb82[m
+Author: zac-roland <gilliland.zachary@knights.ucf.edu>
+Date:   Thu Jul 11 19:24:35 2019 -0400
+
+    Change npm start to server.js
+    
+    This thing is still all over the place in terms of organization
+
+[33mcommit 425904409788cfd0ed6ed690910fc46955e6a83d[m
+Author: zac-roland <gilliland.zachary@knights.ucf.edu>
+Date:   Thu Jul 11 16:18:01 2019 -0400
+
+    update to gitignore
+
+[33mcommit 8e46c96193a12183b9d4c1795fc921dca76cb0f2[m
+Author: zac-roland <gilliland.zachary@knights.ucf.edu>
+Date:   Thu Jul 11 15:53:58 2019 -0400
+
+    Remove node_modules
+
+[33mcommit 63f4fb66f1fc74bc0916de7f213d034369dd54c0[m
+Author: zac-roland <gilliland.zachary@knights.ucf.edu>
+Date:   Thu Jul 11 15:43:09 2019 -0400
+
+    Fix procfile, package.json start script
+
+[33mcommit f54ae0adf2610da4b3884a06101a67c7c4568a7a[m
+Author: zac-roland <gilliland.zachary@knights.ucf.edu>
+Date:   Thu Jul 11 15:04:35 2019 -0400
+
+    Add empty server.js; clear procfile
+
+[33mcommit 75506a0997f9d3c274cd046953782d1f0b3cf13d[m
+Author: zac-roland <gilliland.zachary@knights.ucf.edu>
+Date:   Thu Jul 11 14:39:41 2019 -0400
+
+    Re-Install node_modules
+
+[33mcommit a1b7963931f3c2b2cb18d288bd152b5d743a3d6e[m
+Author: zac-roland <gilliland.zachary@knights.ucf.edu>
+Date:   Thu Jul 11 14:31:46 2019 -0400
+
+    Update package.json
+
+[33mcommit 2b4e6c9d4b2ddba98a8bece38e8dfedae8b98f79[m
+Author: zac-roland <gilliland.zachary@knights.ucf.edu>
+Date:   Thu Jul 11 14:26:20 2019 -0400
+
+    Create package.json
+
+[33mcommit 4b27f7f3786b71073e8b6d9c5cbd47cc0f9d4993[m
+Author: zac-roland <gilliland.zachary@knights.ucf.edu>
+Date:   Thu Jul 11 14:24:27 2019 -0400
+
+    Reset node dependencies
+
+[33mcommit 70030f6988151db5ff3d3a403d07b7a76b1ec4e4[m
+Author: zac-roland <gilliland.zachary@knights.ucf.edu>
+Date:   Thu Jul 11 14:12:33 2019 -0400
+
+    Install node-pre-gyp
+
+[33mcommit e703c2991ae3ec6d5de7dbd4bb356c954a2abd1b[m
+Author: zac-roland <gilliland.zachary@knights.ucf.edu>
+Date:   Thu Jul 11 14:04:15 2019 -0400
+
+    Delete yarn.lock
+
+[33mcommit 8e663e4aca33a64d07c80eee10313abc48a56127[m
+Author: zac-roland <gilliland.zachary@knights.ucf.edu>
+Date:   Thu Jul 11 13:52:12 2019 -0400
+
+    Install more modules
+    
+    I don't know if I installed them in the right place, or if it even carries over to local machines after pulling
+
+[33mcommit 82cb15beae3b4bd63d61804409182b074b6a25fa[m
+Author: zac-roland <gilliland.zachary@knights.ucf.edu>
+Date:   Thu Jul 11 13:26:26 2019 -0400
+
+    Install node modules
+    
+    Assorted modules including body-parser, stripe, react, and mongoose
+
+[33mcommit 4bbdbc39ffc75db5124e4cbc92c9a19723b7f31c[m
+Author: Gustavo Diaz Galeas <17144795+Incapamentum@users.noreply.github.com>
+Date:   Sat Jul 6 00:38:26 2019 -0400
+
+    Update config.js
+
+[33mcommit c1ccaf73941b14abf9b80592fbc03f7bdf4f1469[m
+Author: Gustavo Diaz Galeas <17144795+Incapamentum@users.noreply.github.com>
+Date:   Sat Jul 6 00:34:30 2019 -0400
+
+    Update app.js
+
+[33mcommit 2147e75b08093d4998102f20725be58ae35e159b[m
+Author: jiglesiasmorales <jiglesiasmorales@knights.ucf.edu>
+Date:   Sat Jul 6 00:11:07 2019 -0400
+
+    Setting up a sample MERN app
+
+[33mcommit 7b6f4f568eb79875f38663f659a428a384558989[m
+Author: Incapamentum <diazg.gustavoa@gmail.com>
+Date:   Thu Jun 27 12:16:20 2019 -0400
+
+    Added a simple README. Will be updated at a future date.
