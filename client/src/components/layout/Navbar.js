@@ -14,7 +14,6 @@ class Navbar extends Component {
 							}}
 							className="col s5 brand-logo center black-text">
 								<i className="material-icons">attach_money</i>
-								<i className="material-icons">speaker_phone</i>
 								<i className="material-icons">attach_money</i>
 								Tip'N'Go
             			</Link>

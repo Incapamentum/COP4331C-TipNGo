@@ -8,8 +8,7 @@ class Landing extends Component {
 				<div className="row">
 					<div className="col s12 center-align">
 						<h4>
-							<b>Hello!</b> This is the{" "}
-							<span style={{ fontFamily: "monospace" }}>Tip'N'Go</span> landing page.
+							Welcome to Tip'N'Go
             			</h4>
 						<p className="flow-text grey-text text-darken-1">
 							This is a paragraph.
@@ -23,7 +22,7 @@ class Landing extends Component {
 									borderRadius: "3px",
 									letterSpacing: "1.5px"
 								}}
-								className="btn btn-large waves-effect waves-light hoverable blue accent-3">
+								className="btn btn-large waves-effect waves-light hoverable green accent-3">
 								Register
               				</Link>
 						</div>
