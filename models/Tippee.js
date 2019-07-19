@@ -7,10 +7,15 @@ const TippeeSchema = new Schema({
 		type: String,
 		required: true
 	},
+	tippeeTag: {
+		type: String
+	},
 	stripeAccount: {
-		type: [String],
-		default: []
+		type: String
+	},
+	photoPath: {
+		type: String
 	}
 });
 
-module.exports = Tippee = mongoose.model("tippee", TippeeSchema);
+module.exports = Tippee = mongoose.model("tippees", TippeeSchema);

@@ -3,6 +3,9 @@ const Schema = mongoose.Schema;
 
 // Create Schema
 const UserSchema = new Schema({
+	userid: {
+		type: String
+	},
 	usertype: {
 		type: String
 	},
@@ -14,9 +17,6 @@ const UserSchema = new Schema({
 	},
 	password: {
 		type: String,
-	},
-	tosdate: {
-		type: Date
 	}
 });
 

@@ -13,4 +13,4 @@ const TipperSchema = new Schema({
 	}
 });
 
-module.exports = Tipper = mongoose.model("tipper", TipperSchema);
+module.exports = Tipper = mongoose.model("tippers", TipperSchema);
