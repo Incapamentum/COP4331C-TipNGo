@@ -22,6 +22,10 @@ const TippeeSchema = new Schema({
 	balanceUSD: {
 		type: Number, // saved as an integer; divided by 100 to calculate dollars and cents
 		default: 0
+	},
+	location: {
+		x: { type: Number },
+		y: { type: Number }
 	}
 });
 
