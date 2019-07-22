@@ -10,6 +10,9 @@ import store from "./store";
 import Navbar from "./components/layout/Navbar";
 import Landing from "./components/layout/Landing";
 import Register from "./components/auth/Register";
+import RegisterType from "./components/layout/RegisterType";
+import RegisterTippee from "./components/auth/RegisterTippee";
+import RegisterTipper from "./components/auth/RegisterTipper";
 import Login from "./components/auth/Login";
 import PrivateRoute from "./components/private-route/PrivateRoute";
 import Dashboard from "./components/dashboard/Dashboard";
@@ -44,6 +47,9 @@ class App extends Component {
 						<Navbar />
 						<Route exact path="/" component={Landing} />
 						<Route exact path="/register" component={Register} />
+						<Route exact path="/registertype" component={RegisterType} />
+						<Route exact path="/registertippee" component={RegisterTippee} />
+						<Route exact path="/registertipper" component={RegisterTipper} />
 						<Route exact path="/login" component={Login} />
 						<Switch>
 							<PrivateRoute exact path="/dashboard" component={Dashboard} />
