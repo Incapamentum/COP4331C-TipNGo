@@ -15,6 +15,13 @@ const TippeeSchema = new Schema({
 	},
 	photoPath: {
 		type: String
+	},
+	commendations: {
+		type: [String]
+	},
+	balanceUSD: {
+		type: Number, // saved as an integer; divided by 100 to calculate dollars and cents
+		default: 0
 	}
 });
 
