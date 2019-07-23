@@ -13,26 +13,33 @@ import java.util.List;
 
 import online.teamsixstar.tipngo.R;
 
-public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.ViewHolder> {
+public class TransactionAdapterTipper extends RecyclerView.Adapter<TransactionAdapterTipper.ViewHolder> {
+
+    private List<TipperTransactions> mTransactions;
+
+    public TransactionAdapterTipper(List<TipperTransactions> transactions){
+
+        mTransactions = transactions;
+    }
 
     // Usually involves inflating a layout from XML and returning the holder
     @NonNull
     @Override
-    public TransactionAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public TransactionAdapterTipper.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
         // Inflate the custom layout
         View transactionView = inflater.inflate(R.layout.item_transaction, parent, false);
 
-        //// Return a new holder instance
+        // Return a new holder instance
         ViewHolder viewHolder = new ViewHolder(transactionView);
         return viewHolder;
     }
 
     // Involves populating data into the item through holder
     @Override
-    public void onBindViewHolder(@NonNull TransactionAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull TransactionAdapterTipper.ViewHolder holder, int position) {
         // Get the data model based on position
         TipperTransactions transaction = mTransactions.get(position);
 
@@ -67,12 +74,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         }
     }
 
-    private List<TipperTransactions> mTransactions;
 
-    public TransactionAdapter(List<TipperTransactions> transactions){
-
-        mTransactions = transactions;
-    }
 
 
 }

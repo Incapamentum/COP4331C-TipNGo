@@ -33,7 +33,7 @@ public class TipperHome extends AppCompatActivity {
 
         sectionPageAdapterTipper = new SectionPageAdapterTipper(getSupportFragmentManager());
 
-        viewPager = findViewById(R.id.balanceTabPage);
+        viewPager = findViewById(R.id.activityTabPage);
         setupViewPager(viewPager);
 
         TabLayout tabLayout = findViewById(R.id.tipperTabs);
@@ -71,7 +71,7 @@ public class TipperHome extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager){
         SectionPageAdapterTipper adapter = new SectionPageAdapterTipper(getSupportFragmentManager());
-        adapter.addFragment(new TipperBalanceTab(), "Balance");
+        adapter.addFragment(new TipperBalanceTab(), "Activity");
         adapter.addFragment(new TipperSendMoneyTab(), "Send Money");
         viewPager.setAdapter(adapter);
         return;

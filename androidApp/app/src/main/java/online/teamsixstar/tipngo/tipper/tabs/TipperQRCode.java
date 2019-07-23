@@ -3,6 +3,7 @@ package online.teamsixstar.tipngo.tipper.tabs;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Vibrator;
@@ -24,6 +25,7 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
 import java.io.IOException;
 
 import online.teamsixstar.tipngo.R;
+import online.teamsixstar.tipngo.tipper.TipperHome;
 import pub.devrel.easypermissions.EasyPermissions;
 
 import static androidx.core.content.ContextCompat.checkSelfPermission;
@@ -89,6 +91,8 @@ public class TipperQRCode extends AppCompatActivity {
                             Vibrator vibrator = (Vibrator) getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
                             vibrator.vibrate(1000);
                             textView.setText(qrCode.valueAt(0).displayValue);
+                            // TODO: get QR text and search tippee in database then direct user through startActivity to send them money
+                            startActivity(new Intent(getApplicationContext(), TipperHome.class));
                         }
                     });
                 }

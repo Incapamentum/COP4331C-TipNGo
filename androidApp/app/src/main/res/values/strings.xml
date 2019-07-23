@@ -16,7 +16,7 @@
     <string name="tippee_register_title">New Tippee</string>
     <string name="tipper_balance_message">Your Balance is: </string>
     <string name="settings">Settings</string>
-    <string name="accounts">Accounts</string>
+    <string name="accounts">Account</string>
     <string name="logout">Logout</string>
     <string name="recent_activity_title">Recent Activity</string>
     <string name="title_location_permission">Location Permission</string>
@@ -27,4 +27,9 @@
     <string name="search_by_name">Search by Name</string>
     <string name="search">Search</string>
     <string name="qr_message">Please focus on QR code</string>
+    <string name="tippee_bank_account_title">Bank Account</string>
+    <string name="add_bank">Add</string>
+    <string name="tippee_no_account_message">No account added</string>
+    <string name="tippee_qr_generate_title">QR Code</string>
+    <string name="generate_qr_code">Generate QR Code</string>
 </resources>
