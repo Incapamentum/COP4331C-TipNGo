@@ -4,13 +4,14 @@ const Schema = mongoose.Schema;
 
 // Create Schema
 const TipperSchema = new Schema({
-	userid: {
-		type: String,
-		required: true
-	},
 	paymentTokens: {
 		type: [String],
 		default: []
+	},
+	tos_acceptance: {
+        date: Date,
+        ip: String,
+        user_agent: String
 	},
 	transactionHistory: {
 		type: [transactions]

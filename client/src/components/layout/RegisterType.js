@@ -1,20 +1,21 @@
 import React, { Component } from "react";
-import { Link } from "react-dom";
+import { Link, withRouter } from "react-router-dom";
+import { connect } from "react-redux";
 
 class RegisterType extends Component {
     render() {
         return (
             <div className="container">
+                <Link to="/" className="btn-flat waves-effect">
+					<i className="material-icons left">keyboard_backspace</i> Back to Welcome
+            	</Link>
+				<h4>
+				    Create an account
+            	</h4>
+				<p className="grey-text text-darken-1">
+					Already have an account? <Link to="/login" style={{ color: "#5be359" }}>Log in</Link>
+				</p>
                 <div className="row">
-                    <Link to="/" className="btn-flat waves-effect">
-						<i className="material-icons left">keyboard_backspace</i> Back to Welcome
-            		</Link>
-					<h4>
-					    Create an account
-            		</h4>
-					<p className="grey-text text-darken-1">
-						Already have an account? <Link to="/login" style={{ color: "#008000" }}>Log in</Link>
-					</p>
                     <div className="col s12">
                         <h5>Will you be giving tips?</h5>
                         <p className="flow-text grey-text text-darken-1">
@@ -23,7 +24,7 @@ class RegisterType extends Component {
                         <Link
 							to="/registertipper"
 							style={{
-								width: "140px",
+								width: "200px",
 								borderRadius: "3px",
 								letterSpacing: "1.5px"
 							}}
@@ -39,7 +40,7 @@ class RegisterType extends Component {
                         <Link
 							to="/registertippee"
 							style={{
-								width: "140px",
+								width: "200px",
 								borderRadius: "3px",
 								letterSpacing: "1.5px"
 							}}
@@ -53,4 +54,4 @@ class RegisterType extends Component {
     }
 }
 
-export default RegisterType;
+export default connect()(withRouter(RegisterType));
