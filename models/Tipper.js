@@ -8,14 +8,14 @@ const TipperSchema = new Schema({
 		type: [String],
 		default: []
 	},
-	transactionHistory: {
-		type: [transactions]
-	},
 	tos_acceptance: {
         date: Date,
         ip: String,
         user_agent: String
-    }
+	},
+	transactionHistory: {
+		type: [transactions]
+	}
 });
 
 module.exports = Tipper = mongoose.model("tippers", TipperSchema);
