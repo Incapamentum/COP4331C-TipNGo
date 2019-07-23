@@ -9,7 +9,6 @@ import store from "./store";
 
 import Navbar from "./components/layout/Navbar";
 import Landing from "./components/layout/Landing";
-import Register from "./components/auth/Register";
 import RegisterType from "./components/layout/RegisterType";
 import RegisterTippee from "./components/auth/RegisterTippee";
 import RegisterTipper from "./components/auth/RegisterTipper";
@@ -46,7 +45,6 @@ class App extends Component {
 					<div className="App">
 						<Navbar />
 						<Route exact path="/" component={Landing} />
-						<Route exact path="/register" component={Register} />
 						<Route exact path="/registertype" component={RegisterType} />
 						<Route exact path="/registertippee" component={RegisterTippee} />
 						<Route exact path="/registertipper" component={RegisterTipper} />

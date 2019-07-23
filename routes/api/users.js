@@ -12,10 +12,10 @@ const validateLoginInput = require("../../validation/login");
 // Load User model
 const User = require("../../models/User");
 
-// @route POST api/users/register
-// @desc Register user
+// @route POST api/users/registertipper
+// @desc Register Tipper user
 // @access Public
-router.post("/register", (req, res) => {
+router.post("/registertipper", (req, res) => {
 	// Form validation
 
 	const { errors, isValid } = validateRegisterInput(req.body);
@@ -30,7 +30,47 @@ router.post("/register", (req, res) => {
 			return res.status(400).json({ email: "Email already exists" });
 		} else {
 			const newUser = new User({
-				name: req.body.name,
+				usertype: "tipper",
+				firstname: req.body.firstname,
+				email: req.body.email,
+				password: req.body.password
+			});
+
+			// Hash password before saving in database
+			bcrypt.genSalt(10, (err, salt) => {
+				bcrypt.hash(newUser.password, salt, (err, hash) => {
+					if (err) throw err;
+					newUser.password = hash;
+					newUser
+						.save()
+						.then(user => res.json(user))
+						.catch(err => console.log(err));
+				});
+			});
+		}
+	});
+});
+
+// @route POST api/users/registertippee
+// @desc Register Tippee user
+// @access Public
+router.post("/registertippee", (req, res) => {
+	// Form validation
+
+	const { errors, isValid } = validateRegisterInput(req.body);
+
+	// Check validation
+	if (!isValid) {
+		return res.status(400).json(errors);
+	}
+
+	User.findOne({ email: req.body.email }).then(user => {
+		if (user) {
+			return res.status(400).json({ email: "Email already exists" });
+		} else {
+			const newUser = new User({
+				usertype: "tippee",
+				firstname: req.body.firstname,
 				email: req.body.email,
 				password: req.body.password
 			});

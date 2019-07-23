@@ -2,14 +2,14 @@ import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { registerUser } from "../../actions/authActions";
+import { registerTipperUser } from "../../actions/authActions";
 import classnames from "classnames";
 
 class Register extends Component {
 	constructor() {
 		super();
 		this.state = {
-			name: "",
+			firstname: "",
 			email: "",
 			password: "",
 			password2: "",
@@ -40,13 +40,13 @@ class Register extends Component {
 		e.preventDefault();
 
 		const newUser = {
-			name: this.state.name,
+			firstname: this.state.firstname,
 			email: this.state.email,
 			password: this.state.password,
 			password2: this.state.password2
 		};
 
-		this.props.registerUser(newUser, this.props.history);
+		this.props.registerTipperUser(newUser, this.props.history);
 	};
 
 	render() {
@@ -61,10 +61,10 @@ class Register extends Component {
             			</Link>
 						<div className="col s12" style={{ paddingLeft: "11.250px" }}>
 							<h4>
-								<b>Register</b> below
+								<b>Register</b> as a Tipper below
               				</h4>
 							<p className="grey-text text-darken-1">
-								Already have an account? <Link to="/login">Log in</Link>
+								Already have an account? <Link to="/login" style={{ color: "#5be359" }}>Log in</Link>
 							</p>
 						</div>
 						<form noValidate onSubmit={this.onSubmit}>
@@ -73,14 +73,14 @@ class Register extends Component {
 									onChange={this.onChange}
 									value={this.state.name}
 									error={errors.name}
-									id="name"
+									id="firstname"
 									type="text"
 									className={classnames("", {
-										invalid: errors.name
+										invalid: errors.firstname
 									})}
 								/>
-								<label htmlFor="name">Name</label>
-								<span className="red-text">{errors.name}</span>
+								<label htmlFor="firstname">First Name</label>
+								<span className="red-text">{errors.firstname}</span>
 							</div>
 							<div className="input-field col s12">
 								<input
@@ -133,7 +133,7 @@ class Register extends Component {
 										marginTop: "1rem"
 									}}
 									type="submit"
-									className="btn btn-large waves-effect waves-light hoverable blue accent-3">
+									className="btn btn-large waves-effect waves-light hoverable green accent-3">
 									Sign up
                 				</button>
 							</div>
@@ -146,7 +146,7 @@ class Register extends Component {
 }
 
 Register.propTypes = {
-	registerUser: PropTypes.func.isRequired,
+	registerTipperUser: PropTypes.func.isRequired,
 	auth: PropTypes.object.isRequired,
 	errors: PropTypes.object.isRequired
 };
@@ -158,5 +158,5 @@ const mapStateToProps = state => ({
 
 export default connect(
 	mapStateToProps,
-	{ registerUser }
+	{ registerTipperUser }
 )(withRouter(Register));
