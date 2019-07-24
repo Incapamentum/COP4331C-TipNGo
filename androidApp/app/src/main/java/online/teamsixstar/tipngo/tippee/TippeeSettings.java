@@ -1,17 +1,16 @@
-package online.teamsixstar.tipngo;
+package online.teamsixstar.tipngo.tippee;
 
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class About extends AppCompatActivity {
-    // TODO
+class TippeeSettings extends AppCompatActivity {
 
+    // TODO: create tippee settings. Create layout and methods
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about);
     }
 }

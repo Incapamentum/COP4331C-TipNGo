@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import online.teamsixstar.tipngo.R;
-import online.teamsixstar.tipngo.tipper.tabs.TransactionAdapterTipper;
 
 public class TippeeBalanceTab extends Fragment {
 

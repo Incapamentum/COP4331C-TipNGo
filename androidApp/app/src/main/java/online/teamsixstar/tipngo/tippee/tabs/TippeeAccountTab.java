@@ -18,6 +18,9 @@ public class TippeeAccountTab extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.tippee_account_tab, container, false);
 
+        // TODO: Generate QR code based on tippee email here
+        // TODO: Create methods to add bank info
+
         return view;
     }
 }
