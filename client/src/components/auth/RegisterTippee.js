@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { registerTippeeUser } from "../../actions/authActions";
 import classnames from "classnames";
 
-class Register extends Component {
+class RegisterTippee extends Component {
 	constructor() {
 		super();
 		this.state = {
@@ -166,7 +166,7 @@ class Register extends Component {
 	}
 }
 
-Register.propTypes = {
+RegisterTippee.propTypes = {
 	registerTippeeUser: PropTypes.func.isRequired,
 	auth: PropTypes.object.isRequired,
 	errors: PropTypes.object.isRequired
@@ -180,4 +180,4 @@ const mapStateToProps = state => ({
 export default connect(
 	mapStateToProps,
 	{ registerTippeeUser }
-)(withRouter(Register));
+)(withRouter(RegisterTippee));

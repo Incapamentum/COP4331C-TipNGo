@@ -6,7 +6,8 @@ const keys = require("../../config/keys");
 const passport = require("passport");
 
 // Load input validation
-const validateRegisterInput = require("../../validation/register");
+const validateTippeeRegisterInput = require("../../validation/registerTippee");
+const validateTipperRegisterInput = require("../../validation/registerTipper");
 const validateLoginInput = require("../../validation/login");
 const validateStripeAccountInput = require("../../validation/stripeAccount");
 
@@ -21,7 +22,7 @@ const Tipper = require("../../models/Tipper");
 router.post("/registertipper", (req, res) => {
 	// Form validation
 
-	const { errors, isValid } = validateRegisterInput(req.body);
+	const { errors, isValid } = validateTipperRegisterInput(req.body);
 
 	// Check validation
 	if (!isValid) {
@@ -69,7 +70,7 @@ router.post("/registertipper", (req, res) => {
 router.post("/registertippee", (req, res) => {
 	// Form validation
 
-	const { errors, isValid } = validateRegisterInput(req.body);
+	const { errors, isValid } = validateTippeeRegisterInput(req.body);
 	const { stripeErrors, isValidStripe } = validateStripeAccountInput(req.body);
 
 	// Check validation
