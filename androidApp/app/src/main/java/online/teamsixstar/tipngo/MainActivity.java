@@ -5,7 +5,6 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.StrictMode;
 import android.view.View;
 
 import online.teamsixstar.tipngo.tippee.TippeeLogin;

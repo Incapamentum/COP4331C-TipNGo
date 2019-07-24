@@ -73,6 +73,8 @@ public class TippeeLogin extends AppCompatActivity {
                     textView.setText(result.getString("email"));
                 if(result.has("password"))
                     textView.setText(result.getString("password"));
+                if(result.has("firstname"))
+                    textView.setText(result.getString("firstname"));
             }catch (Exception e){
                 e.printStackTrace();
             }

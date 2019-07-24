@@ -1,13 +1,13 @@
-package online.teamsixstar.tipngo.tipper;
+package online.teamsixstar.tipngo.tippee;
 
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class TipperSettings extends AppCompatActivity {
+class TippeeSettings extends AppCompatActivity {
 
-    // TODO: create settings for tipper. Create layout and methods
+    // TODO: create tippee settings. Create layout and methods
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

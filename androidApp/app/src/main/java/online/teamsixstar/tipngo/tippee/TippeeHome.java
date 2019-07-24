@@ -1,8 +1,10 @@
 package online.teamsixstar.tipngo.tippee;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -11,6 +13,8 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 
+import online.teamsixstar.tipngo.About;
+import online.teamsixstar.tipngo.MainActivity;
 import online.teamsixstar.tipngo.R;
 import online.teamsixstar.tipngo.tippee.tabs.SectionPagerAdapterTippee;
 import online.teamsixstar.tipngo.tippee.tabs.TippeeAccountTab;
@@ -26,6 +30,10 @@ public class TippeeHome extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tippee_home);
+
+        Toolbar title = findViewById(R.id.tippeeHome);
+
+        // TODO fetch tippee information and set up name and recent transaction
 
         sectionPagerAdapterTippee = new SectionPagerAdapterTippee(getSupportFragmentManager());
 
@@ -46,7 +54,39 @@ public class TippeeHome extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            startSettings();
+            return true;
+        }else if(id == R.id.about){
+            startAbout();
+            return true;
+        }else if(id == R.id.logout){
+            doLogout();
+            return true;
+        }
+
+
         return super.onOptionsItemSelected(item);
+    }
+
+    private void startSettings(){
+        Intent i = new Intent(getApplicationContext(), TippeeSettings.class);
+        startActivity(i);
+        return;
+    }
+
+    private void startAbout(){
+        Intent i = new Intent(getApplicationContext(), About.class);
+        startActivity(i);
+        return;
+    }
+
+    private void doLogout(){
+        // TODO clear user data
+        Intent i = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(i);
+        return;
     }
 
     public void setupViewPager(ViewPager viewPager){

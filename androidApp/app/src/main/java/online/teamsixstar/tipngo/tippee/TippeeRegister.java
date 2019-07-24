@@ -72,8 +72,8 @@ public class TippeeRegister extends AppCompatActivity {
             finish();
         }else{
             try {
-                if(result.has("name"))
-                    textView.setText(result.getString("name"));
+                if(result.has("firstname"))
+                    textView.setText(result.getString("firstname"));
                 if(result.has("email"))
                     textView.setText(result.getString("email"));
                 if(result.has("password"));
