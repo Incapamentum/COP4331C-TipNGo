@@ -4,7 +4,10 @@ const Schema = mongoose.Schema;
 
 // Create Schema
 const TippeeSchema = new Schema({
-	tippeeTag: {
+	email: { // FK
+		type: String
+	},
+	userName: {
 		type: String
 	},
 	stripeAccount: {
@@ -26,12 +29,7 @@ const TippeeSchema = new Schema({
 	location: {
 		x: { type: Number },
 		y: { type: Number }
-	},
-	tos_acceptance: {
-        date: Date,
-        ip: String,
-        user_agent: String
-    }
+	}
 });
 
 module.exports = Tippee = mongoose.model("tippees", TippeeSchema);
