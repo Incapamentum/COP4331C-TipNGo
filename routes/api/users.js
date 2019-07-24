@@ -57,7 +57,7 @@ router.post("/registertipper", (req, res) => {
 			});
 			newTipper
 				.save()
-				.then(tipper => res.json(tipper))
+				//.then(tipper => res.json(tipper))
 				.catch(err => console.log(err));
 		}
 	});
@@ -122,7 +122,7 @@ router.post("/registertippee", (req, res) => {
 
 				tos_acceptance: {
 					date: Math.floor(Date.now() / 1000),
-					ip: request.connection.remoteAddress
+					ip: req.connection.remoteAddress
 				  }
 			}, (err, account) => {
 				if(err) throw err;
@@ -130,8 +130,9 @@ router.post("/registertippee", (req, res) => {
 				newTippee.stripeAccount = account.id;
 				newTippee
 					.save()
-					.then(tippee => res.json(tippee))
 					.catch(err => console.log(err));
+
+				console.log(account);
 			});
 		}
 	});

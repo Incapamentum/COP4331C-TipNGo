@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const transactions = require("./Transaction");
+const Transaction = require("./Transaction").schema;
 const Schema = mongoose.Schema;
 
 // Create Schema
@@ -11,9 +11,7 @@ const TipperSchema = new Schema({
 		type: [String],
 		default: []
 	},
-	transactionHistory: {
-		type: [transactions]
-	}
+	transactionHistory: [{ type: Schema.Types.ObjectId, ref: "transactions"}]
 });
 
 module.exports = Tipper = mongoose.model("tippers", TipperSchema);

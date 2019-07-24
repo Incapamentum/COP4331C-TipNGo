@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const transactions = require("./Transaction");
+const Transaction = require("./Transaction").schema;
 const Schema = mongoose.Schema;
 
 // Create Schema
@@ -19,9 +19,7 @@ const TippeeSchema = new Schema({
 	commendations: {
 		type: [String]
 	},
-	transactionHistory: {
-		type: [transactions]
-	},
+	transactionHistory: [{ type: Schema.Types.ObjectId, ref: "transactions"}],
 	balanceUSD: {
 		type: Number, // saved as an integer; divided by 100 to calculate dollars and cents
 		default: 0
