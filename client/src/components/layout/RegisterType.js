@@ -15,11 +15,11 @@ class RegisterType extends Component {
 				<p className="grey-text text-darken-1">
 					Already have an account? <Link to="/login" style={{ color: "#5be359" }}>Log in</Link>
 				</p>
-                <div className="row">
-                    <div className="col s12">
+                <div className="row column-gap">
+                    <div className="col s12 l5">
                         <h5>Will you be giving tips?</h5>
                         <p className="flow-text grey-text text-darken-1">
-                            Search for workers that you think need a tip. Create a Tipper account, connect your payment method, and start tipping!
+                            Search for workers that you think need a tip. Find Tippees by location, username, or QR code. Connect a debit card to make leaving a tip even easier.
                         </p>
                         <Link
 							to="/registertipper"
@@ -32,7 +32,7 @@ class RegisterType extends Component {
 							Become a Tipper
               			</Link>
                     </div>
-                    <div className="col s12">
+					<div className="col s12 l5 right">
                         <h5>...Or receiving tips?</h5>
                         <p className="flow-text grey-text text-darken-1">
                             Create a profile and set your location of work. Tippers can search for you in a variety of ways. Connect your bank account to transfer collected tips.

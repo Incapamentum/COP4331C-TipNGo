@@ -1,10 +1,16 @@
 const mongoose = require("mongoose");
-const transactions = require("./Transaction");
+const Transaction = require("./Transaction").schema;
 const Schema = mongoose.Schema;
 
 // Create Schema
 const TippeeSchema = new Schema({
-	tippeeTag: {
+	email: {
+		type: String
+	},
+	userid: {
+		type: String
+	},
+	userName: {
 		type: String
 	},
 	stripeAccount: {
@@ -16,9 +22,7 @@ const TippeeSchema = new Schema({
 	commendations: {
 		type: [String]
 	},
-	transactionHistory: {
-		type: [transactions]
-	},
+	transactionHistory: [{ type: Schema.Types.ObjectId, ref: "transactions"}],
 	balanceUSD: {
 		type: Number, // saved as an integer; divided by 100 to calculate dollars and cents
 		default: 0
@@ -26,12 +30,7 @@ const TippeeSchema = new Schema({
 	location: {
 		x: { type: Number },
 		y: { type: Number }
-	},
-	tos_acceptance: {
-        date: Date,
-        ip: String,
-        user_agent: String
-    }
+	}
 });
 
 module.exports = Tippee = mongoose.model("tippees", TippeeSchema);

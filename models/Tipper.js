@@ -1,21 +1,20 @@
 const mongoose = require("mongoose");
-const transactions = require("./Transaction");
+const Transaction = require("./Transaction").schema;
 const Schema = mongoose.Schema;
 
 // Create Schema
 const TipperSchema = new Schema({
+	email: {
+		type: String
+	},
+	userid: {
+		type: String
+	},
 	paymentTokens: {
 		type: [String],
 		default: []
 	},
-	tos_acceptance: {
-        date: Date,
-        ip: String,
-        user_agent: String
-	},
-	transactionHistory: {
-		type: [transactions]
-	}
+	transactionHistory: [{ type: Schema.Types.ObjectId, ref: "transactions"}]
 });
 
 module.exports = Tipper = mongoose.model("tippers", TipperSchema);

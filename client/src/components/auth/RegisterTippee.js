@@ -5,12 +5,13 @@ import { connect } from "react-redux";
 import { registerTippeeUser } from "../../actions/authActions";
 import classnames from "classnames";
 
-class Register extends Component {
+class RegisterTippee extends Component {
 	constructor() {
 		super();
 		this.state = {
 			firstname: "",
 			email: "",
+			username: "",
 			password: "",
 			password2: "",
 			errors: {}
@@ -42,6 +43,7 @@ class Register extends Component {
 		const newUser = {
 			firstname: this.state.firstname,
 			email: this.state.email,
+			username: this.state.username,
 			password: this.state.password,
 			password2: this.state.password2
 		};
@@ -99,6 +101,20 @@ class Register extends Component {
 							<div className="input-field col s12">
 								<input
 									onChange={this.onChange}
+									value={this.state.username}
+									error={errors.username}
+									id="username"
+									type="text"
+									className={classnames("", {
+										invalid: errors.username
+									})}
+								/>
+								<label htmlFor="firstname">Username</label>
+								<span className="red-text">{errors.username}</span>
+							</div>
+							<div className="input-field col s12">
+								<input
+									onChange={this.onChange}
 									value={this.state.password}
 									error={errors.password}
 									id="password"
@@ -124,7 +140,12 @@ class Register extends Component {
 								<label htmlFor="password2">Confirm Password</label>
 								<span className="red-text">{errors.password2}</span>
 							</div>
+
 							<div className="col s12" style={{ paddingLeft: "11.250px" }}>
+								<p className="grey-text text-darken-1">
+									By registering with Tip'N'Go, you agree to both the <a target="_blank" rel="noopener noreferrer" href="https://vignette.wikia.nocookie.net/surrealmemes/images/1/17/Flawless_picardia_by_epycwyn-dbkbyfq.png/revision/latest/scale-to-width-down/220?cb=20180418235839" style={{ color: "#5be359" }}>Tip'N'Go Terms of Service </a> 
+									and the <a target="_blank" rel="noopener noreferrer" href="https://stripe.com/connect-account/legal" style={{ color: "#5be359" }}>Stripe Connected Account Agreement</a>.
+								</p>
 								<button
 									style={{
 										width: "150px",
@@ -145,7 +166,7 @@ class Register extends Component {
 	}
 }
 
-Register.propTypes = {
+RegisterTippee.propTypes = {
 	registerTippeeUser: PropTypes.func.isRequired,
 	auth: PropTypes.object.isRequired,
 	errors: PropTypes.object.isRequired
@@ -159,4 +180,4 @@ const mapStateToProps = state => ({
 export default connect(
 	mapStateToProps,
 	{ registerTippeeUser }
-)(withRouter(Register));
+)(withRouter(RegisterTippee));
