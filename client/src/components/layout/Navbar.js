@@ -13,9 +13,9 @@ class Navbar extends Component {
 								fontFamily: "monospace"
 							}}
 							className="col s5 brand-logo center black-text">
-								<i className="material-icons">attach_money</i>
-								<i className="material-icons">attach_money</i>
+								$
 								Tip'N'Go
+								$
             			</Link>
 					</div>
 				</nav>
