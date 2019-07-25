@@ -54,11 +54,11 @@ router.post("/registertipper", (req, res) => {
 
 			// Create and save Tipper document for user 
 			const newTipper = new Tipper({
-				email: req.body.email
+				email: req.body.email,
+				userid: newUser.id
 			});
 			newTipper
 				.save()
-				//.then(tipper => res.json(tipper))
 				.catch(err => console.log(err));
 		}
 	});
@@ -108,7 +108,8 @@ router.post("/registertippee", (req, res) => {
 			// Create Tippee document for user
 			const newTippee = new Tippee({
 				email: req.body.email,
-				userName: req.body.username
+				userName: req.body.username,
+				userid: newUser.id
 			});
 
 			const stripe = require("stripe")(keys.secretTestKey);

@@ -4,7 +4,10 @@ const Schema = mongoose.Schema;
 
 // Create Schema
 const TippeeSchema = new Schema({
-	email: { // FK
+	email: {
+		type: String
+	},
+	userid: {
 		type: String
 	},
 	userName: {
