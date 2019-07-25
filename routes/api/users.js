@@ -33,6 +33,7 @@ router.post("/registertipper", (req, res) => {
 		if (user) {
 			return res.status(400).json({ email: "Email already exists" });
 		} else {
+			// Create User document
 			const newUser = new User({
 				usertype: "tipper",
 				firstname: req.body.firstname,
@@ -40,11 +41,20 @@ router.post("/registertipper", (req, res) => {
 				password: req.body.password
 			});
 
+			// Create Tipper document for user 
+			const newTipper = new Tipper({
+				email: req.body.email,
+				userid: newUser.id
+			});
+
 			// Hash password before saving in database
 			bcrypt.genSalt(10, (err, salt) => {
 				bcrypt.hash(newUser.password, salt, (err, hash) => {
 					if (err) throw err;
 					newUser.password = hash;
+					newUser.accountid = newTipper.id;
+					
+					// Save new user to database
 					newUser
 						.save()
 						.then(user => res.json(user))
@@ -52,11 +62,7 @@ router.post("/registertipper", (req, res) => {
 				});
 			});
 
-			// Create and save Tipper document for user 
-			const newTipper = new Tipper({
-				email: req.body.email,
-				userid: newUser.id
-			});
+			// Save tipper account to database
 			newTipper
 				.save()
 				.catch(err => console.log(err));
@@ -86,23 +92,12 @@ router.post("/registertippee", (req, res) => {
 		if (user) {
 			return res.status(400).json({ email: "Email already exists" });
 		} else {
+			// Create user document
 			const newUser = new User({
 				usertype: "tippee",
 				firstname: req.body.firstname,
 				email: req.body.email,
 				password: req.body.password
-			});
-			
-			// Hash password before saving in database
-			bcrypt.genSalt(10, (err, salt) => {
-				bcrypt.hash(newUser.password, salt, (err, hash) => {
-					if (err) throw err;
-					newUser.password = hash;
-					newUser
-						.save()
-						.then(user => res.json(user))
-						.catch(err => console.log(err));
-				});
 			});
 
 			// Create Tippee document for user
@@ -111,8 +106,24 @@ router.post("/registertippee", (req, res) => {
 				userName: req.body.username,
 				userid: newUser.id
 			});
+			
+			// Hash password before saving in database
+			bcrypt.genSalt(10, (err, salt) => {
+				bcrypt.hash(newUser.password, salt, (err, hash) => {
+					if (err) throw err;
+					newUser.password = hash;
+					newUser.accountid = newTippee.id;
+
+					// Save user document
+					newUser
+						.save()
+						.then(user => res.json(user))
+						.catch(err => console.log(err));
+				});
+			});
 
 			const stripe = require("stripe")(keys.secretTestKey);
+
 			// Create stripe account on stripe server
 			stripe.accounts.create({
 				type: "custom",
@@ -128,13 +139,12 @@ router.post("/registertippee", (req, res) => {
 				  }
 			}, (err, account) => {
 				if(err) throw err;
+
 				// Save returned stripe account id to Tippee document
 				newTippee.stripeAccount = account.id;
 				newTippee
 					.save()
 					.catch(err => console.log(err));
-
-				console.log(account);
 			});
 		}
 	});
