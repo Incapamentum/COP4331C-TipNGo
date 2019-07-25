@@ -11,7 +11,7 @@ const validateTipperRegisterInput = require("../../validation/registerTipper");
 const validateLoginInput = require("../../validation/login");
 const validateStripeAccountInput = require("../../validation/stripeAccount");
 
-// Load User model
+// Load models
 const User = require("../../models/User");
 const Tippee = require("../../models/Tippee");
 const Tipper = require("../../models/Tipper");
@@ -21,7 +21,6 @@ const Tipper = require("../../models/Tipper");
 // @access Public
 router.post("/registertipper", (req, res) => {
 	// Form validation
-
 	const { errors, isValid } = validateTipperRegisterInput(req.body);
 
 	// Check validation
@@ -75,17 +74,11 @@ router.post("/registertipper", (req, res) => {
 // @access Public
 router.post("/registertippee", (req, res) => {
 	// Form validation
-
 	const { errors, isValid } = validateTippeeRegisterInput(req.body);
-	const { stripeErrors, isValidStripe } = validateStripeAccountInput(req.body);
-
+	
 	// Check validation
 	if (!isValid) {
 		return res.status(400).json(errors);
-	}
-
-	if(!isValidStripe) {
-		return res.statusMessage(400).json(stripeErrors);
 	}
 
 	User.findOne({ email: req.body.email }).then(user => {
@@ -130,9 +123,13 @@ router.post("/registertippee", (req, res) => {
 				country: "US",
 				email: req.body.email,
 				business_type: "individual",
+				business_profile: {mcc: "1520"},
 				requested_capabilities: ["card_payments"],
-
-
+				individual: {
+					first_name: req.body.firstname,
+					last_name: req.body.lastname,
+					email: req.body.email,
+				},
 				tos_acceptance: {
 					date: Math.floor(Date.now() / 1000),
 					ip: req.connection.remoteAddress
@@ -155,7 +152,6 @@ router.post("/registertippee", (req, res) => {
 // @access Public
 router.post("/login", (req, res) => {
 	// Form validation
-
 	const { errors, isValid } = validateLoginInput(req.body);
 
 	// Check validation
