@@ -4,7 +4,6 @@ const keys = require("../../config/keys");
 
 // Load input validation
 const validateStripeAccountInput = require("../../validation/stripeAccount");
-const validateBankAccountInput = require("../../validation/bankAccount");
 
 // @route POST api/stripe/editstripe
 // @desc Edit details of Stripe account
@@ -35,7 +34,6 @@ router.post("/editstripe", (req, res) => {
                 dob: req.body.dob,
                 ssn_last_4: req.body.ssn_last_4
             }
-
         }
     );
 });
@@ -43,14 +41,6 @@ router.post("/editstripe", (req, res) => {
 // @route POST api/stripe/addbankaccount
 // @desc Add a bank account by token to an existing stripe account
 router.post("/addbankaccount", (req, res) => {
-    // Form validation
-    const { bankErrors, isValidBankInfo } = validateBankAccountInput(req.body);
-
-    // Check form validation
-    if(!isValidBankInfo) {
-        return res.statusMessage(400).json(bankErrors);
-    }
-
     // Instantiate a Stripe connection
     const stripe = require("stripe"(keys.secretTestKey));
 

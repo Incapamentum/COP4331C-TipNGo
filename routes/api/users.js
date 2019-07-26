@@ -3,13 +3,13 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
-const passport = require("passport");
+
+//const passport = require("passport");
 
 // Load input validation
 const validateTippeeRegisterInput = require("../../validation/registerTippee");
 const validateTipperRegisterInput = require("../../validation/registerTipper");
 const validateLoginInput = require("../../validation/login");
-const validateStripeAccountInput = require("../../validation/stripeAccount");
 
 // Load models
 const User = require("../../models/User");
@@ -175,7 +175,7 @@ router.post("/login", (req, res) => {
 				// User matched
 				// Create JWT Payload
 				const payload = {
-					id: user.userid,
+					id: user._id,
 					name: user.firstname
 				};
 
