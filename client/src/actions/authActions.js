@@ -8,7 +8,9 @@ import { GET_ERRORS, SET_CURRENT_USER, USER_LOADING } from "./types";
 export const registerTipperUser = (userData, history) => dispatch => {
 	axios
 		.post("/api/users/registertipper", userData)
-		.then(res => history.push("/login"))
+		.then(res => {
+			history.push("/login");
+		})
 		.catch(err =>
 			dispatch({
 				type: GET_ERRORS,
@@ -21,7 +23,9 @@ export const registerTipperUser = (userData, history) => dispatch => {
 export const registerTippeeUser = (userData, history) => dispatch => {
 	axios
 		.post("/api/users/registertippee", userData)
-		.then(res => history.push("/login"))
+		.then(res => {
+			history.push("/login");
+		})
 		.catch(err =>
 			dispatch({
 				type: GET_ERRORS,
@@ -35,15 +39,17 @@ export const loginUser = userData => dispatch => {
 	axios
 		.post("/api/users/login", userData)
 		.then(res => {
-			// Save to localStorage
-
-			// Set token to localStorage
+			// Set token to localStorage		
 			const { token } = res.data;
+
 			localStorage.setItem("jwtToken", token);
+
 			// Set token to Auth header
 			setAuthToken(token);
+
 			// Decode token to get user data
 			const decoded = jwt_decode(token);
+
 			// Set current user
 			dispatch(setCurrentUser(decoded));
 		})

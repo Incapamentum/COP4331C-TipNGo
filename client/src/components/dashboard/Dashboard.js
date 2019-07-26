@@ -21,6 +21,8 @@ class Dashboard extends Component {
 							<p className="flow-text grey-text text-darken-1">
 								You are logged into{" "}
 								<span style={{ fontFamily: "monospace" }}>Tip'N'Go</span>
+								<br />
+								Your userid is {user.id}
 							</p>
 						</h4>
 						<button
