@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { registerTipperUser } from "../../actions/authActions";
+import { registerTipperUser, logoutUser } from "../../actions/authActions";
 import classnames from "classnames";
 
 class RegisterTipper extends Component {
@@ -18,9 +18,9 @@ class RegisterTipper extends Component {
 	}
 
 	componentDidMount() {
-		// If logged in and user navigates to Register page, should redirect them to dashboard
+		// If logged in and user navigates to Register page, logout
 		if (this.props.auth.isAuthenticated) {
-			this.props.history.push("/dashboard");
+			this.props.logoutUser();
 		}
 	}
 
@@ -146,6 +146,7 @@ class RegisterTipper extends Component {
 }
 
 RegisterTipper.propTypes = {
+	logoutUser: PropTypes.func.isRequired,
 	registerTipperUser: PropTypes.func.isRequired,
 	auth: PropTypes.object.isRequired,
 	errors: PropTypes.object.isRequired
@@ -158,5 +159,5 @@ const mapStateToProps = state => ({
 
 export default connect(
 	mapStateToProps,
-	{ registerTipperUser }
+	{ registerTipperUser, logoutUser }
 )(withRouter(RegisterTipper));

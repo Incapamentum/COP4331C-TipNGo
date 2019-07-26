@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { registerTippeeUser } from "../../actions/authActions";
+import { registerTippeeUser, logoutUser } from "../../actions/authActions";
 import classnames from "classnames";
+
 
 class RegisterTippee extends Component {
 	constructor() {
@@ -20,9 +21,9 @@ class RegisterTippee extends Component {
 	}
 
 	componentDidMount() {
-		// If logged in and user navigates to Register page, should redirect them to dashboard
+		// If logged in and user navigates to Register page, logout 
 		if (this.props.auth.isAuthenticated) {
-			this.props.history.push("/dashboard");
+			this.props.logoutUser();
 		}
 	}
 
@@ -183,6 +184,7 @@ class RegisterTippee extends Component {
 }
 
 RegisterTippee.propTypes = {
+	logoutUser: PropTypes.func.isRequired,
 	registerTippeeUser: PropTypes.func.isRequired,
 	auth: PropTypes.object.isRequired,
 	errors: PropTypes.object.isRequired
@@ -195,5 +197,5 @@ const mapStateToProps = state => ({
 
 export default connect(
 	mapStateToProps,
-	{ registerTippeeUser }
+	{ registerTippeeUser, logoutUser }
 )(withRouter(RegisterTippee));
