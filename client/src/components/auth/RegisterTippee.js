@@ -10,6 +10,7 @@ class RegisterTippee extends Component {
 		super();
 		this.state = {
 			firstname: "",
+			lastname: "",
 			email: "",
 			username: "",
 			password: "",
@@ -42,6 +43,7 @@ class RegisterTippee extends Component {
 
 		const newUser = {
 			firstname: this.state.firstname,
+			lastname: this.state.lastname,
 			email: this.state.email,
 			username: this.state.username,
 			password: this.state.password,
@@ -87,6 +89,20 @@ class RegisterTippee extends Component {
 							<div className="input-field col s12">
 								<input
 									onChange={this.onChange}
+									value={this.state.lastname}
+									error={errors.lastname}
+									id="lastname"
+									type="text"
+									className={classnames("", {
+										invalid: errors.lastname
+									})}
+								/>
+								<label htmlFor="lastname">Last Name</label>
+								<span className="red-text">{errors.lastname}</span>
+							</div>
+							<div className="input-field col s12">
+								<input
+									onChange={this.onChange}
 									value={this.state.email}
 									error={errors.email}
 									id="email"
@@ -109,7 +125,7 @@ class RegisterTippee extends Component {
 										invalid: errors.username
 									})}
 								/>
-								<label htmlFor="firstname">Username</label>
+								<label htmlFor="username">Username</label>
 								<span className="red-text">{errors.username}</span>
 							</div>
 							<div className="input-field col s12">

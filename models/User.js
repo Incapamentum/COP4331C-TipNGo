@@ -6,6 +6,9 @@ const UserSchema = new Schema({
 	usertype: {
 		type: String
 	},
+	accountid: {
+		type: String
+	},
 	firstname: {
 		type: String,
 	},
