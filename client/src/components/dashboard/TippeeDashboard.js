@@ -4,6 +4,15 @@ import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 
 class TippeeDashboard extends Component {
+	componentDidMount() {
+		// If logged in as tipper and not tippee, redirect
+		if (this.props.auth.isAuthenticated) {
+			const { user } = this.props.auth;
+			if (user.usertype !== "tippee")
+				this.props.logoutUser();
+		}
+	}
+
 	onLogoutClick = e => {
 		e.preventDefault();
 		this.props.logoutUser();
