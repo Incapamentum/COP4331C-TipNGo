@@ -57,7 +57,8 @@ class SetupStripe extends Component {
             year: year
         };
 
-        this.props.setupStripe(newStripeInfo, this.props.history);
+		this.props.setupStripe(newStripeInfo, this.props.history);
+		
     };
 
     render() {
@@ -69,27 +70,13 @@ class SetupStripe extends Component {
 					<div className="col s8 offset-s2">
 						<div className="col s12" style={{ paddingLeft: "11.250px" }}>
 							<h4>
-								We'll need some information to set up your Stripe account.
+								We'll need some information to set up your <b>Stripe</b> account.
               				</h4>
 							<p className="grey-text text-darken-1">
 								Tip'N'Go uses Stripe to manage transactions.
 							</p>
 						</div>
 						<form noValidate onSubmit={this.onSubmit}>
-							<div className="input-field col s12">
-								<input
-									onChange={this.onChange}
-									value={this.state.dob}
-									error={errors.dob}
-									id="dob"
-									type="date"
-									className={classnames("", {
-										invalid: errors.dob
-									})}
-								/>
-								<label htmlFor="dob">Date of Birth</label>
-								<span className="red-text">{errors.dob}</span>
-							</div>
 							<div className="input-field col s12">
 								<input
 									onChange={this.onChange}
@@ -173,6 +160,20 @@ class SetupStripe extends Component {
 								/>
 								<label htmlFor="phone">Phone Number</label>
 								<span className="red-text">{errors.phone}</span>
+							</div>
+							<div className="input-field col s12">
+								<input
+									onChange={this.onChange}
+									value={this.state.dob}
+									error={errors.dob}
+									id="dob"
+									type="date"
+									className={classnames("", {
+										invalid: errors.dob
+									})}
+								/>
+								<label htmlFor="dob">Date of Birth</label>
+								<span className="red-text">{errors.dob}</span>
 							</div>
                             <div className="input-field col s12">
 								<input

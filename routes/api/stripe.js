@@ -23,8 +23,6 @@ router.post("/editstripe", (req, res) => {
     // Extract user id form request
     const userid = req.body.userid;
 
-    console.log(req.body);
-
     // Find tippee in database to get stripe account id
     Tippee.findOne({ userid }).then(tippee => {
         if (!tippee) {
@@ -61,16 +59,25 @@ router.post("/editstripe", (req, res) => {
 // @desc Add a bank account by token to an existing stripe account
 router.post("/addbankaccount", (req, res) => {
     // Instantiate a Stripe connection
-    const stripe = require("stripe"(keys.secretTestKey));
+    const stripe = require("stripe")(keys.secretTestKey);
 
-    stripe.accounts.createExternalAccount(
-        req.body.stripeAccount,
-        {
-            external_account: req.body.bank_account
-        }, (err, bank_account) => {
-            if(err) throw err;
+    // Extract user id from request
+    const userid = req.body.userid;
+
+    // Find tippee in database to get stripe account id
+    Tippee.findOne({ userid }).then(tippee => {
+        if (!tippee) {
+            return res.status(404).json({ tippeenotfound: "Tippee not found" });
+        } else {
+            stripe.accounts.createExternalAccount(
+                tippee.stripeAccount,
+                {
+                    external_account: req.body.token.id
+                }, (err, bank_account) => {
+                    if (err) throw err;
+            });
         }
-    );
+    });
 });
 
 module.exports = router;
