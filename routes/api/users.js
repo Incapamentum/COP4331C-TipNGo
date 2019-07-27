@@ -42,6 +42,7 @@ router.post("/registertipper", (req, res) => {
 
 			// Create Tipper document for user 
 			const newTipper = new Tipper({
+				name: req.body.firstname,
 				email: req.body.email,
 				userid: newUser.id
 			});
@@ -95,6 +96,7 @@ router.post("/registertippee", (req, res) => {
 
 			// Create Tippee document for user
 			const newTippee = new Tippee({
+				name: req.body.firstname,
 				email: req.body.email,
 				userName: req.body.username,
 				userid: newUser.id

@@ -1,6 +1,13 @@
-// // react page for sending information to /api/stripe/editstripe
+import axios from "axios";
+
+import { GET_ERRORS } from "./types";
+
+export const 
+// post to route that uses stripe.accounts.update
 
 
+
+export const
 // stripe.createToken('bank_account', {
 //     country: 'US',
 //     currency: 'usd',

@@ -9,10 +9,16 @@ const TransactionSchema = new Schema({
     tippee: {
         type: String
     },
+    tippeeName: {
+        type: String
+    },
     receivingStripeAccount: {
         type: String
     },
     tipper: {
+        type: String
+    },
+    tipperName: {
         type: String
     },
     sendingPaymentToken: {

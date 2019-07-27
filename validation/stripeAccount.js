@@ -12,6 +12,7 @@ module.exports = function validateStripeAccountInput(data) {
 	data.postal_code = !isEmpty(data.postal_code) ? data.postal_code : "";
 	data.state = !isEmpty(data.state) ? data.state : "";
 	data.ssn_last_4 = !isEmpty(data.ssn_last_4) ? data.ssn_last_4 : "";
+	data.dob = !isEmpty(data.dob) ? data.dob : "";
 
 	// Phone check
 	if (Validator.isEmpty(data.phone)) {
@@ -45,6 +46,11 @@ module.exports = function validateStripeAccountInput(data) {
 	// SSN check
 	if(Validator.isEmpty(data.ssn_last_4)) {
 		stripeErrors.ssn_last_4 = "SSN last 4 are required";
+	}
+
+	// Date of birth check
+	if(Validator.isEmpty(data.dob)) {
+		stripeErrors.dob = "Date of birth required";
 	}
 	
 	return {
