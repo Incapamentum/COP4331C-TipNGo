@@ -11,6 +11,8 @@ import Navbar from "./components/layout/Navbar";
 import Landing from "./components/layout/Landing";
 import RegisterType from "./components/layout/RegisterType";
 import RegisterTippee from "./components/auth/RegisterTippee";
+import SetupStripe from "./components/auth/SetupStripe";
+import SetupBank from "./components/auth/SetupBank";
 import RegisterTipper from "./components/auth/RegisterTipper";
 import Login from "./components/auth/Login";
 import PrivateRoute from "./components/private-route/PrivateRoute";
@@ -48,6 +50,8 @@ class App extends Component {
 						<Route exact path="/" component={Landing} />
 						<Route exact path="/registertype" component={RegisterType} />
 						<Route exact path="/registertippee" component={RegisterTippee} />
+						<Route exact path="/setupstripe" component={SetupStripe} />
+						<Route exact path="/setupbank" component={SetupBank} />
 						<Route exact path="/registertipper" component={RegisterTipper} />
 						<Route exact path="/login" component={Login} />
 						<Switch>

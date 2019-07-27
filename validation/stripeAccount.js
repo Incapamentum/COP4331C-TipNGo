@@ -34,8 +34,8 @@ module.exports = function validateStripeAccountInput(data) {
 	// Postal code check
 	if (Validator.isEmpty(data.postal_code)) {
 		stripeErrors.postal_code = "Postal code is required";
-	} else if (!Validator.isPostalCode(data.postal_code)) {
-		stripeErrors.postal_code = "Invalid postal code";
+	// } else if (!Validator.isPostalCode(data.postal_code)) {
+	// 	stripeErrors.postal_code = "Invalid postal code";
 	}
 
 	// State check

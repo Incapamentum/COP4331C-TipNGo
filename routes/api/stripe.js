@@ -8,20 +8,22 @@ const validateStripeAccountInput = require("../../validation/stripeAccount");
 // @route POST api/stripe/editstripe
 // @desc Edit details of Stripe account
 // @params the request must contain the id of the user
-router.post("/editstripe", (req, res) => {
+router.post("/editstripe", (req, res) => { 
     // Form validation
     const { stripeErrors, isValidStripe } = validateStripeAccountInput(req.body);
 
     // Check form validation
     if(!isValidStripe) {
-		return res.statusMessage(400).json(stripeErrors);
+		return res.status(400).json(stripeErrors);
     }
     
     // Start Stripe session
-    const stripe = require("stripe"(keys.secretTestKey));
+    const stripe = require("stripe")(keys.secretTestKey);
 
     // Extract user id form request
     const userid = req.body.userid;
+
+    console.log(req.body);
 
     // Find tippee in database to get stripe account id
     Tippee.findOne({ userid }).then(tippee => {
@@ -41,16 +43,18 @@ router.post("/editstripe", (req, res) => {
                             postal_code: req.body.postal_code,
                             state: req.body.state,   
                         },
-                        dob: req.body.dob,
+                        dob: {
+                            day: req.body.day,
+                            month: req.body.month,
+                            year: req.body.year
+                        },
                         ssn_last_4: req.body.ssn_last_4
                     }
-                }
-            );
-            // should probably return the stripe account here
+                }, (err, account) => {
+                    if (err) throw err;
+            });
         }
     });
-
-    
 });
 
 // @route POST api/stripe/addbankaccount

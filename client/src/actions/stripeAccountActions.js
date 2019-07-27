@@ -6,9 +6,16 @@ export const setupStripe = (stripeData, history) => dispatch => {
     axios
         .post("/api/stripe/editstripe", stripeData)
         .then(res => {
+            // Push to bank account setup
             history.push("/setupbank");
         })
-}
+        .catch(err => 
+            dispatch({
+                type: GET_ERRORS,
+                payload: err.response.data
+            })
+        );
+};
 // post to route that uses stripe.accounts.update
 
 

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { setupStripe } from "../../actions/authActions";
+import { setupStripe } from "../../actions/stripeAccountActions";
 import classnames from "classnames";
 
 class SetupStripe extends Component {
@@ -37,6 +37,10 @@ class SetupStripe extends Component {
         e.preventDefault();
 
         const { user } = this.props.auth;
+        const dob = new Date(this.state.dob);
+        var year = dob.getFullYear();
+        var month = dob.getMonth();
+        var day = dob.getDate();
 
         const newStripeInfo = {
             userid: user.id,
@@ -47,7 +51,10 @@ class SetupStripe extends Component {
             postal_code: this.state.postal_code,
             state: this.state.state,
             ssn_last_4: this.state.ssn_last_4,
-            dob: this.state.dob
+            dob: this.state.dob,
+            day: day,
+            month: month,
+            year: year
         };
 
         this.props.setupStripe(newStripeInfo, this.props.history);
@@ -156,10 +163,24 @@ class SetupStripe extends Component {
                             <div className="input-field col s12">
 								<input
 									onChange={this.onChange}
+									value={this.state.phone}
+									error={errors.phone}
+									id="phone"
+									type="number"
+									className={classnames("", {
+										invalid: errors.phone
+									})}
+								/>
+								<label htmlFor="phone">Phone Number</label>
+								<span className="red-text">{errors.phone}</span>
+							</div>
+                            <div className="input-field col s12">
+								<input
+									onChange={this.onChange}
 									value={this.state.ssn_last_4}
 									error={errors.ssn_last_4}
 									id="ssn_last_4"
-									type="number"
+									type="password"
 									className={classnames("", {
 										invalid: errors.ssn_last_4
 									})}
