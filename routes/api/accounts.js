@@ -33,8 +33,6 @@ router.post("/findtippee", (req, res) => {
     })
 });
 
-module.exports = router;
-
 router.post("/deletetippee", (res, req) => {
 
 });

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { registerTippeeUser, logoutUser } from "../../actions/authActions";
+import { setupStripe } from "../../actions/authActions";
 import classnames from "classnames";
 
 class SetupStripe extends Component {
@@ -35,7 +35,10 @@ class SetupStripe extends Component {
     onSubmit = e => {
         e.preventDefault();
 
+        const { user } = this.props.auth;
+
         const newStripeInfo = {
+            userid: user.id,
             phone: this.state.phone,
             city: this.state.city,
             line1: this.state.line1,
@@ -45,22 +48,8 @@ class SetupStripe extends Component {
             ssn_last_4: this.state.ssn_last_4
         };
 
-        this.props.setupStripe(newStripeInfo, this.props.history)
+        this.props.setupStripe(newStripeInfo, this.props.history);
     };
 
-    render
+    // render a page to collect user information pertinent to stripe account completion
 }
-
-
-// stripe.createToken('bank_account', {
-//     country: 'US',
-//     currency: 'usd',
-//     routing_number: '110000000',
-//     account_number: '000123456789',
-//     account_holder_name: 'Jenny Rosen',
-//     account_holder_type: 'individual',
-//   }).then(function(result) {
-//     // Handle result.error or result.token
-//   });
-
-//   // response to contain bank_account token

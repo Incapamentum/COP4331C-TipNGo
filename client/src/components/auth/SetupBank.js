@@ -1,0 +1,1 @@
+// react page for collecting info for a bank account, sent to stripeAccountActions

@@ -2,12 +2,18 @@ import axios from "axios";
 
 import { GET_ERRORS } from "./types";
 
-export const 
+export const setupStripe = (stripeData, history) => dispatch => {
+    axios
+        .post("/api/stripe/editstripe", stripeData)
+        .then(res => {
+            history.push("/setupbank");
+        })
+}
 // post to route that uses stripe.accounts.update
 
 
 
-export const
+//export const send info from SetupBank to here for tokenization
 // stripe.createToken('bank_account', {
 //     country: 'US',
 //     currency: 'usd',
