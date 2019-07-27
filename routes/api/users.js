@@ -66,6 +66,28 @@ router.post("/registertipper", (req, res) => {
 			newTipper
 				.save()
 				.catch(err => console.log(err));
+
+			// // Create JWT Payload
+			// const payload = {
+			// 	id: newUser._id,
+			// 	usertype: newUser.usertype,
+			// 	name: newUser.firstname
+			// };
+
+			// // Sign token
+			// jwt.sign(
+			// 	payload,
+			// 	keys.secretOrKey,
+			// 	{
+			// 		expiresIn: 31556926 // 1 year in seconds
+			// 	},
+			// 	(err, token) => {
+			// 		res.json({
+			// 			success: true,
+			// 			token: "Bearer " + token
+			// 		});
+			// 	}
+			// );
 		}
 	});
 });
