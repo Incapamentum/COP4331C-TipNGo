@@ -18,6 +18,7 @@ const Tipper = require("../../models/Tipper");
 
 // @route POST api/users/registertipper
 // @desc Register Tipper user
+// @params firstname, email, password, password2
 // @access Public
 router.post("/registertipper", (req, res) => {
 	// Form validation
@@ -62,10 +63,20 @@ router.post("/registertipper", (req, res) => {
 				});
 			});
 
-			// Save tipper account to database
-			newTipper
-				.save()
-				.catch(err => console.log(err));
+			const stripe = require("stripe")(keys.secretTestKey);
+
+			stripe.customers.create({
+				description: "Tip'N'Go customer for " + req.body.email,
+
+			}, (err, customer) => {
+				if (err) throw err;
+
+				// Save new customer id to tipper and tipper to database
+				newTipper.stripeCustomer = customer.id;
+				newTipper
+					.save()
+					.catch(err => console.log(err));
+			});
 
 			// Create JWT Payload
 			const payload = {
@@ -80,8 +91,7 @@ router.post("/registertipper", (req, res) => {
 				keys.secretOrKey,
 				{
 					expiresIn: 31556926 // 1 year in seconds
-				},
-				(err, token) => {
+				}, (err, token) => {
 					res.json({
 						success: true,
 						token: "Bearer " + token
@@ -94,6 +104,7 @@ router.post("/registertipper", (req, res) => {
 
 // @route POST api/users/registertippee
 // @desc Register Tippee user and create stripe account
+// @params firstname, lastname, email, password, password2
 // @access Public
 router.post("/registertippee", (req, res) => {
 	// Form validation
@@ -184,8 +195,7 @@ router.post("/registertippee", (req, res) => {
 				keys.secretOrKey,
 				{
 					expiresIn: 31556926 // 1 year in seconds
-				},
-				(err, token) => {
+				}, (err, token) => {
 					res.json({
 						success: true,
 						token: "Bearer " + token
@@ -198,6 +208,7 @@ router.post("/registertippee", (req, res) => {
 
 // @route POST api/users/login
 // @desc Login user and return JWT token
+// @params email, password
 // @access Public
 router.post("/login", (req, res) => {
 	// Form validation
@@ -235,8 +246,7 @@ router.post("/login", (req, res) => {
 					keys.secretOrKey,
 					{
 						expiresIn: 31556926 // 1 year in seconds
-					},
-					(err, token) => {
+					}, (err, token) => {
 						res.json({
 							success: true,
 							token: "Bearer " + token

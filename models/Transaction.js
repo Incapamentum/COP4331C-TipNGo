@@ -6,7 +6,7 @@ const TransactionSchema = new Schema({
 	tipper: String,
 	stripeAccount: String,
 	tippee: String,
-	sendingToken: String,
+	stripeCustomer: String,
 	date: Date,
 	amount: Number
 });

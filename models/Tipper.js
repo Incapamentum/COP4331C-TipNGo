@@ -12,7 +12,7 @@ const TipperSchema = new Schema({
 	userid: {
 		type: String
 	},
-	paymentToken: {
+	stripeCustomer: {
 		type: String
 	},
 	transactionHistory: [{
@@ -20,7 +20,7 @@ const TipperSchema = new Schema({
 		tippee: String,
 		stripeAccount: String,
 		tipper: String,
-		sendingToken: String,
+		stripeCustomer: String,
 		date: Date,
 		amount: Number
 	}]

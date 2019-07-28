@@ -8,8 +8,8 @@ const User = require("../../models/User");
 const Transaction = require("../../models/Transaction");
 
 // @rout POST api/pay/sendtip
-// @desc send tip from tipper user's saved card token to tippee's stripe account
-//       assumes tipper has payment token saved
+// @desc send tip from tipper user's customer token to tippee's stripe account
+//       assumes tipper has a payment card saved to the customer
 // @params ammount, userid, tippeeid
 router.post("/sendtip", (req, res) => {
     const amount = req.body.amount;
@@ -33,7 +33,7 @@ router.post("/sendtip", (req, res) => {
             stripe.charges.create({
                 amount: amount,
                 currency: "usd",
-                source: tipper.paymentToken,
+                source: tipper.stripeCustomer,
                 transfer_data: {
                     destination: tippee.stripeAccount
                 }
@@ -45,7 +45,7 @@ router.post("/sendtip", (req, res) => {
 	                tippee: tippee,
 	                stripeAccount: tippee.stripeAccount,
                     tipper: tipper,
-	                sendingToken: tipper.paymentToken,
+	                stripeCustomer: tipper.stripeCustomer,
 	                date: date,
 	                amount: amount
                 });
@@ -55,7 +55,7 @@ router.post("/sendtip", (req, res) => {
                     "tippee": tippee,
                     "stripeAccount": tippee.stripeAccount,
                     "tipper": tipper,
-                    "sendingToken": tipper.paymentToken,
+                    "stripeCustomer": tipper.stripeCustomer,
                     "date": date,
                     "amount": amount
                 };

@@ -30,7 +30,7 @@ const TippeeSchema = new Schema({
 		tippee: String,
 		stripeAccount: String,
 		tipper: String,
-		sendingToken: String,
+		stripeCustomer: String,
 		date: Date,
 		amount: Number
 	}],
