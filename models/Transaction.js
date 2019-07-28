@@ -3,36 +3,12 @@ const Schema = mongoose.Schema;
 
 // Create Schema
 const TransactionSchema = new Schema({
-	transactionID: {
-        type: String
-    },
-    tippee: {
-        type: String
-    },
-    tippeeName: {
-        type: String
-    },
-    receivingStripeAccount: {
-        type: String
-    },
-    tipper: {
-        type: String
-    },
-    tipperName: {
-        type: String
-    },
-    sendingPaymentToken: {
-        type: String
-    },
-    ammount: {
-        type: Number
-    },
-    date: {
-        type: Date
-    },
-    success: {
-        type: Boolean
-    }
+	tipper: String,
+	stripeAccount: String,
+	tippee: String,
+	sendingToken: String,
+	date: Date,
+	amount: Number
 });
 
 module.exports = Transaction = mongoose.model("transactions", TransactionSchema);

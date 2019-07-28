@@ -88,4 +88,8 @@ router.post("/addbankaccount", (req, res) => {
     });
 });
 
+router.post("/payout", (req, res) => {
+
+});
+
 module.exports = router;

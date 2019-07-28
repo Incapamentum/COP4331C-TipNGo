@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const Transaction = require("./Transaction").schema;
 const Schema = mongoose.Schema;
 
 // Create Schema
@@ -13,11 +12,18 @@ const TipperSchema = new Schema({
 	userid: {
 		type: String
 	},
-	paymentTokens: {
-		type: [String],
-		default: []
+	paymentToken: {
+		type: String
 	},
-	transactionHistory: [{ type: Schema.Types.ObjectId, ref: "transactions"}]
+	transactionHistory: [{
+		transactionid: String,
+		tippee: String,
+		stripeAccount: String,
+		tipper: String,
+		sendingToken: String,
+		date: Date,
+		amount: Number
+	}]
 });
 
 module.exports = Tipper = mongoose.model("tippers", TipperSchema);
