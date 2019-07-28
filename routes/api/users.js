@@ -67,7 +67,7 @@ router.post("/registertipper", (req, res) => {
 
 			stripe.customers.create({
 				description: "Tip'N'Go customer for " + req.body.email,
-
+				email: req.body.email
 			}, (err, customer) => {
 				if (err) throw err;
 
