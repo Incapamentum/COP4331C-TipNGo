@@ -52,7 +52,7 @@ class SetupBank extends Component {
 					<div className="col s8 offset-s2">
 						<div className="col s12" style={{ paddingLeft: "11.250px" }}>
 							<h4>
-								Finally you need a <b>bank sccount</b> to deposit your tips.
+								Finally, you'll need a <b>bank account</b> to deposit your tips.
               				</h4>
 						</div>
 						<form noValidate onSubmit={this.onSubmit}>

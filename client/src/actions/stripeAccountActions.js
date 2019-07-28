@@ -4,10 +4,10 @@ import { GET_ERRORS } from "./types";
 export const setupStripe = (stripeData, history) => dispatch => {
     axios
         .post("/api/stripe/editstripe", stripeData)
-        .then(res => {
-            // Push to bank account setup
-            history.push("/setupbank");
-        })
+        // .then(res => {
+        //     // Push to bank account setup
+        //     history.push("/setupbank");
+        // })
         .catch(err => 
             dispatch({
                 type: GET_ERRORS,
@@ -41,9 +41,9 @@ export const setupBank = (bankData, history) => dispatch => {
 
             axios
                 .post("/api/stripe/addbankaccount", payload)
-                .then(res => {
-                    history.push("/tippeedashboard");
-                })
+                // .then(res => {
+                //     history.push("/tippeedashboard");
+                // })
                 .catch(err =>
                     dispatch({
                         type: GET_ERRORS,

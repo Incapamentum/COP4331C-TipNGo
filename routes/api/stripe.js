@@ -50,6 +50,10 @@ router.post("/editstripe", (req, res) => {
                     }
                 }, (err, account) => {
                     if (err) throw err;
+                    res.json({
+                        success: true,
+                        account: account
+                    });
             });
         }
     });
@@ -75,6 +79,10 @@ router.post("/addbankaccount", (req, res) => {
                     external_account: req.body.token.id
                 }, (err, bank_account) => {
                     if (err) throw err;
+                    res.json({
+                        success: true,
+                        bank_account: bank_account
+                    });
             });
         }
     });
