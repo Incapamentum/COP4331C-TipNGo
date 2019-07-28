@@ -1,7 +1,24 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+
 class Landing extends Component {
+	
+	componentDidMount() {
+		// If logged in and user navigates to Login page, should redirect them to dashboard
+		if (this.props.auth.isAuthenticated) {
+			const { user } = this.props.auth;
+			if (user.usertype === "tipper")
+			{
+				this.props.history.push("/tipperdashboard");
+			} else {
+				this.props.history.push("/tippeedashboard");
+			}
+		}
+	}
+
 	render() {
 		return (
 			<div style={{ height: "75vh" }} className="container valign-wrapper">
@@ -46,4 +63,13 @@ class Landing extends Component {
 	}
 }
 
-export default Landing;
+Landing.propTypes = {
+	auth: PropTypes.object.isRequired
+}
+
+const mapStateToProps = state => ({
+	auth: state.auth,
+	errors: state.errors
+});
+
+export default connect(mapStateToProps)(Landing);

@@ -4,6 +4,9 @@ const Schema = mongoose.Schema;
 
 // Create Schema
 const TipperSchema = new Schema({
+	name: {
+		type: String
+	},
 	email: {
 		type: String
 	},

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { registerTipperUser } from "../../actions/authActions";
+import { registerTipperUser, loginUser } from "../../actions/authActions";
 import classnames from "classnames";
 
 class RegisterTipper extends Component {
@@ -17,14 +17,23 @@ class RegisterTipper extends Component {
 		};
 	}
 
-	componentDidMount() {
-		// If logged in and user navigates to Register page, should redirect them to dashboard
-		if (this.props.auth.isAuthenticated) {
-			this.props.history.push("/dashboard");
-		}
-	}
+	// componentDidMount() {
+	// 	// If logged in and user navigates to Register page, logout
+	// 	if (this.props.auth.isAuthenticated) {
+	// 		this.props.logoutUser();
+	// 	}
+	// }
 
 	componentWillReceiveProps(nextProps) {
+		if (nextProps.auth.isAuthenticated) {
+			const { user } = nextProps.auth;
+			if (user.usertype === "tipper")
+			{
+				this.props.history.push("/tipperdashboard");
+			} else {
+				this.props.history.push("/tippeedashboard");
+			}
+		}
 		if (nextProps.errors) {
 			this.setState({
 				errors: nextProps.errors
@@ -146,6 +155,7 @@ class RegisterTipper extends Component {
 }
 
 RegisterTipper.propTypes = {
+	loginUser: PropTypes.func.isRequired,
 	registerTipperUser: PropTypes.func.isRequired,
 	auth: PropTypes.object.isRequired,
 	errors: PropTypes.object.isRequired
@@ -158,5 +168,5 @@ const mapStateToProps = state => ({
 
 export default connect(
 	mapStateToProps,
-	{ registerTipperUser }
+	{ registerTipperUser, loginUser }
 )(withRouter(RegisterTipper));
