@@ -40,8 +40,8 @@ const TippeeSchema = new Schema({
 	},
 	location: {
 		zip_code: { type: Number },
-		x: { type: Number },
-		y: { type: Number }
+		latitude: { type: Number },
+		longitude: { type: Number }
 	}
 });
 
