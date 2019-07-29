@@ -16,10 +16,11 @@ const User = require("../../models/User");
 const Tippee = require("../../models/Tippee");
 const Tipper = require("../../models/Tipper");
 
-// @route POST api/users/registertipper
-// @desc Register Tipper user
-// @params firstname, email, password, password2
-// @access Public
+//	@route POST api/users/registertipper
+//  @desc Creates a User document, Tipper document, and Stripe Customer and saves all
+//        documents to the database. Then creates a signed JWT containing the user's
+//        authentication information.
+//  @params firstname, email, password, password2
 router.post("/registertipper", (req, res) => {
 	// Form validation
 	const { errors, isValid } = validateTipperRegisterInput(req.body);
@@ -103,9 +104,10 @@ router.post("/registertipper", (req, res) => {
 });
 
 // @route POST api/users/registertippee
-// @desc Register Tippee user and create stripe account
+// @desc Creates a User document, Tippee document, and Stripe Connect Custom account.
+//       Sends registration information to Stripe and saves all documents. Then 
+//       creates a signed JWT containing the user's authentication information.
 // @params firstname, lastname, email, password, password2
-// @access Public
 router.post("/registertippee", (req, res) => {
 	// Form validation
 	const { errors, isValid } = validateTippeeRegisterInput(req.body);
@@ -207,9 +209,8 @@ router.post("/registertippee", (req, res) => {
 });
 
 // @route POST api/users/login
-// @desc Login user and return JWT token
+// @desc Authenticate user agianst stored information and return JWT upon success.
 // @params email, password
-// @access Public
 router.post("/login", (req, res) => {
 	// Form validation
 	const { errors, isValid } = validateLoginInput(req.body);
@@ -263,7 +264,7 @@ router.post("/login", (req, res) => {
 });
 
 // @route POST api/users/finduser
-// @desc Request tippee document by id
+// @desc Request User document by id
 // @params id
 router.post("/finduser", (req, res) => {
     const _id = req.body.id;

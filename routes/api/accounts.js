@@ -7,7 +7,7 @@ const User = require("../../models/User");
 
 // @route POST api/accounts/findtipper
 // @desc Request tipper document by id
-// @params 
+// @params id
 router.post("/findtipper", (req, res) => {
     const userid = req.body.id;
 
@@ -65,7 +65,7 @@ router.post("/transactionhistory", (req, res) => {
                 }
                 res.json({
                     success: true,
-                    transactionhistory: tipper.transactionhistory
+                    transactionHistory: tipper.transactionHistory
                 });
             });
         } else {
@@ -75,7 +75,7 @@ router.post("/transactionhistory", (req, res) => {
                 }
                 res.json({
                     success: true,
-                    transactionhistory: tippee.transactionhistory
+                    transactionHistory: tippee.transactionHistory
                 });
             });
         }

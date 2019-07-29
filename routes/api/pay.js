@@ -10,7 +10,7 @@ const Transaction = require("../../models/Transaction");
 // @rout POST api/pay/sendtip
 // @desc send tip from tipper user's customer token to tippee's stripe account
 //       assumes tipper has a payment card saved to the customer
-// @params ammount, userid, tippeeid
+// @params ammount, id, tippeeid
 router.post("/sendtip", (req, res) => {
     const amount = req.body.amount;
 
@@ -21,7 +21,7 @@ router.post("/sendtip", (req, res) => {
         }
 
         // Find user tipper document
-        Tipper.findOne({ userid: req.body.userid }).then(tipper => {
+        Tipper.findOne({ userid: req.body.id }).then(tipper => {
             if (!tipper) {
                 return res.status(404).json({ tippernotfound: "Tipper not found" });
             }
@@ -79,6 +79,14 @@ router.post("/sendtip", (req, res) => {
 
 router.post("/sendguesttip", (req,res) => {
 
+});
+
+// @route POST api/stripe/payout
+// @desc Transfer funds from the stripe platform to the tippee's connected bank
+// @params id
+router.post("/payout", (req, res) => {
+    //find tippee document and get balance and stripeAccount
+    // stripe.transfers.create a transfer with amount = balance and destination = stripeAccount 
 });
 
 module.exports = router;
