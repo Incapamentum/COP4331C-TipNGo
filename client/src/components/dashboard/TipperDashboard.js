@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
+import { obtainTransHistory } from "../../actions/transactionHistory";
 
 class TipperDashboard extends Component {
 	componentDidMount() {
@@ -16,6 +17,12 @@ class TipperDashboard extends Component {
 	onLogoutClick = e => {
 		e.preventDefault();
 		this.props.logoutUser();
+	};
+
+	onTransactionClick = e =>
+	{
+		e.preventDefault();
+		this.props.obtainTransHistory();
 	};
 
 	render() {
@@ -58,6 +65,7 @@ class TipperDashboard extends Component {
 								letterSpacing: "1.5px",
 								marginTop: "1rem"
 							}}
+							onClick={this.onTransactionClick}
 							className="btn btn-large waves-effect waves-light hoverable blue accent-3">
 							View Transaction History
 						</button>
