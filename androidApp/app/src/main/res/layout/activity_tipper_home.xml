@@ -22,7 +22,7 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay"
-            app:title="Welcome Daniel" />
+            app:title="Welcome" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tipperTabs"

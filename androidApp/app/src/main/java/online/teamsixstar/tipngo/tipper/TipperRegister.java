@@ -19,7 +19,7 @@ import static online.teamsixstar.tipngo.JsonIo.doJsonIo;
 
 public class TipperRegister extends AppCompatActivity {
 
-    public static final String url = "https://tip-n-go.herokuapp.com/api/users/registertipper";
+    public static final String URL = "https://tip-n-go.herokuapp.com/api/users/registertipper";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -28,6 +28,7 @@ public class TipperRegister extends AppCompatActivity {
     }
 
     public void doRegisterTipper(View v){
+        // Getting user input
         EditText username = findViewById(R.id.tipperUsername);
         EditText email = findViewById(R.id.tipperRegisterEmail);
         EditText pass = findViewById(R.id.tipperRegPass);
@@ -35,11 +36,13 @@ public class TipperRegister extends AppCompatActivity {
 
         TextView textView = findViewById(R.id.tipperRegisterErrorMsg);
 
+        // Checking if passwords match
         if (pass.getText().toString().compareTo(passConfirm.getText().toString()) != 0){
             textView.setText("Passwords doesn't match");
             return;
         }
 
+        //Constructing json object
         JSONObject payload = new JSONObject();
 
         try {
@@ -53,19 +56,23 @@ public class TipperRegister extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        JSONObject result  = doJsonIo(url, payload.toString());
+        // Transmitting json using Jsonio class
+        JSONObject result  = doJsonIo(URL, payload.toString());
 
+        // Transmission failed
         if(result == null){
             textView.setText("Connection timeout");
             return;
         }
 
+        // If registration successful loading TipperLogin class and terminating register class
         if(result.has("_id")){
             Toast.makeText(this,"Registration successful", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(getApplicationContext(), TipperLogin.class);
             startActivity(intent);
             finish();
         }else{
+            // Registration failed
             try {
                 if(result.has("firstname"))
                     textView.setText(result.getString("firstname"));
@@ -77,7 +84,6 @@ public class TipperRegister extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-
         return;
     }
 }

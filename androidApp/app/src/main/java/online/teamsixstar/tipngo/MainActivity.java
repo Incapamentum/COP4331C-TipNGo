@@ -5,9 +5,12 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.util.Log;
 import android.view.View;
 
+import online.teamsixstar.tipngo.tippee.TippeeHome;
 import online.teamsixstar.tipngo.tippee.TippeeLogin;
+import online.teamsixstar.tipngo.tipper.TipperHome;
 import online.teamsixstar.tipngo.tipper.TipperLogin;
 
 public class MainActivity extends AppCompatActivity {
@@ -15,34 +18,27 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
-        //Toolbar toolbar = findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
-    }
-    /*
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        // Checking if user already logged in
+        if(SaveSharedPreference.getTipperLogin(MainActivity.this).length() == 0 &&
+            SaveSharedPreference.getTippeeLogin(MainActivity.this).length() == 0){
+            // User is not logged in
+            setContentView(R.layout.activity_main);
+        }else{
+            // User is logged in, checking account type
+            if(SaveSharedPreference.getAccountType(MainActivity.this).compareTo("tipper") == 0){
+                Intent intent = new Intent(this, TipperHome.class);
+                startActivity(intent);
+                finish();
+            }
+            if(SaveSharedPreference.getAccountType(MainActivity.this).compareTo("tippee") == 0){
+                Intent intent = new Intent(this, TippeeHome.class);
+                startActivity(intent);
+                finish();
+            }
         }
-
-        return super.onOptionsItemSelected(item);
     }
-    */
+
     public void loadTipperLogin(View v){
         Intent i = new Intent(getApplicationContext(), TipperLogin.class);
         startActivity(i);

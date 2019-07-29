@@ -2,23 +2,35 @@ package online.teamsixstar.tipngo.tipper;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import online.teamsixstar.tipngo.About;
 import online.teamsixstar.tipngo.MainActivity;
 import online.teamsixstar.tipngo.R;
+import online.teamsixstar.tipngo.SaveSharedPreference;
 import online.teamsixstar.tipngo.tipper.tabs.SectionPageAdapterTipper;
 import online.teamsixstar.tipngo.tipper.tabs.TipperBalanceTab;
 import online.teamsixstar.tipngo.tipper.tabs.TipperSendMoneyTab;
 
+import static online.teamsixstar.tipngo.JsonIo.doJsonIo;
+import static online.teamsixstar.tipngo.SaveSharedPreference.getTipperName;
+
 public class TipperHome extends AppCompatActivity {
+
+    public static final String URL = "https://tip-n-go.herokuapp.com/api/accounts/findtipper";
 
     private SectionPageAdapterTipper sectionPageAdapterTipper;
 
@@ -30,6 +42,10 @@ public class TipperHome extends AppCompatActivity {
         setContentView(R.layout.activity_tipper_home);
         //Toolbar toolbar = findViewById(R.id.tipperToolbar);
         //setSupportActionBar(toolbar);
+
+        // Setting user name in title from sharedPreferences
+        Toolbar toolbar = findViewById(R.id.tipperToolbar);
+        toolbar.setTitle("Welcome " + getTipperName(this));
 
         sectionPageAdapterTipper = new SectionPageAdapterTipper(getSupportFragmentManager());
 
@@ -90,9 +106,10 @@ public class TipperHome extends AppCompatActivity {
     }
 
     private void doLogout(){
-        // TODO clear user data
+        SaveSharedPreference.clearUserName(this);
         Intent i = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(i);
+        finish();
         return;
     }
 

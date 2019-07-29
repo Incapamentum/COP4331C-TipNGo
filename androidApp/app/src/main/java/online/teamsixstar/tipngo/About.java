@@ -1,15 +1,17 @@
 package online.teamsixstar.tipngo;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class About extends AppCompatActivity {
+    // TODO
+
 
     @Override
-    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
     }
 }

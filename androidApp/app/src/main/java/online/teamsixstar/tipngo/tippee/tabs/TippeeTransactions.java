@@ -6,10 +6,15 @@ public class TippeeTransactions {
     private String amount;
     private String time;
 
-    public TippeeTransactions(String name, String time, double amount){
+    public TippeeTransactions(String name, String time, int amount){
         this.name = name;
         this.time = time;
-        this.amount = '$' + String.format("%.2f", amount);
+        if(amount == 0.00)
+            this.amount = "";
+        else {
+            double balance = ((double)amount) / 100;
+            this.amount = '$' + String.format("%.2f", balance);
+        }
     }
 
     public String getName() {
