@@ -92,10 +92,18 @@ Within accounts.js - Concerning the retrieval and update of Tipper and Tippee do
     @params email
     @response Tippee document converted to json (see models/Tippee.js)
 
-    @routes POST api/accounts/searchbylocation (NOT YET IMPLEMENTED)
+    @route POST api/accounts/setlocation
+    @desc Set Tippee place of work by zipcode and world coordinates
+    @params id (of associated user), zip_code, latitude, longitude
+    @resonse {
+        success: Boolean,
+        tippee: Tippee document converted to json (see models/Tippee.js)
+    }
+
+    @routes POST api/accounts/searchbylocation
     @desc Retrieve Tippee account document after searching by coordinates and narrowing the search by zip code and range from coordinates.
     @params zip_code, range, latitude, longitude
-    @response Tippee document converted to json (see models/Tippee.js)
+    @response Array of Tippee documents converted to json (see models/Tippee.js)
 
 
 

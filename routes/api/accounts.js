@@ -106,22 +106,71 @@ router.post("/searchbyemail", (req, res) => {
     });
 });
 
+// @route POST api/accounts/setlocation
+// @desc Set Tippee place of work by zipcode and world coordinates
+// @params id (of associated user), zip_code, latitude, longitude
+router.post("/setlocation", (req, res) => {
+    Tippee.findOne({ userid: req.body.id }).then(tippee => {
+        if (!tippee) {
+            return res.status(404).json({ tippeenotfound: "Tippee not found" });
+        }
+
+        tippee.zip_code = req.body.zipcode;
+        tippee.location.latitude = req.body.latitude;
+        tippee.location.longitude = req.body.longitude;
+
+        tippee.save()
+                .then(tippee => res.json({
+                    success: true,
+                    tippee: tippee
+                }))
+                .catch(err => console.log(err));
+    });
+});
+
 // @routes POST api/accounts/searchbylocation (NOT YET IMPLEMENTED)
 // @desc Retrieve Tippee account document after searching by coordinates and 
 //       narrowing the search by zip code and range from coordinates.
 // @params zip_code, range, latitude, longitude
 router.post("/searchbylocation", (req, res) => {
-    const location = {
-        zip_code: req.body.zip_code,
-        latitude: req.body.latitude,
-        longitude: req.body.longitude
-    };
+    // Lat and long ranges are weird and non-trigonometrical
+    // This range is about a radius of two miles from target location
+    const range = 0.033;
 
-    Tippee.find({ zip_code: location.zip_code }).then(tippees => {
-        if (tippees.isEmpty()) {
+    // Extract and parse location data from request
+    const zip_code = req.body.zip_code;
+    const target_lat = parseFloat(req.body.latitude);
+    const target_long = parseFloat(req.body.longitude);
+
+    // Find Tippees within the indicated zip code
+    Tippee.find({ zip_code: zip_code }).then(tippees => {
+        if (tippees === undefined || tippees.length == 0) {
             return res.status(404).json({ notippeesfound: "No Tippees in zip code" });
         }
-        res.json(tippees);
+
+        // Empty array for results
+        const results = [];
+
+        // Loop over returned tippees, calculate distance formula
+        tippees.forEach(tippee => {
+            tippee_lat = parseFloat(tippee.location.latitude);
+            tippee_long = parseFloat(tippee.location.longitude);
+
+            // Calculate distance between Tippee and target location
+            const distance_between = Math.sqrt(Math.pow((tippee_lat - target_lat),2) + Math.pow((tippee_long - target_long),2));
+
+            // Add to result arrray if within given distance range
+            if (distance_between < range) {
+                results.push(tippee);
+            }
+        });
+
+        if (results.length == 0) {
+            return res.status(404).json({ notippeesinrange: "No Tippees in given range" });
+        }
+
+        res.json(results);
+
     });
 });
 
