@@ -3,7 +3,16 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 
-class Dashboard extends Component {
+class TippeeDashboard extends Component {
+	componentDidMount() {
+		// If logged in as tipper and not tippee, redirect
+		if (this.props.auth.isAuthenticated) {
+			const { user } = this.props.auth;
+			if (user.usertype !== "tippee")
+				this.props.logoutUser();
+		}
+	}
+
 	onLogoutClick = e => {
 		e.preventDefault();
 		this.props.logoutUser();
@@ -22,7 +31,11 @@ class Dashboard extends Component {
 								You are logged into{" "}
 								<span style={{ fontFamily: "monospace" }}>Tip'N'Go</span>
 								<br />
-								Your userid is {user.id}
+                                <b>This is the Tippee Dashboard</b>
+                                <br />
+                                Your userid is {user.id}
+                                <br />
+                                You are a {user.usertype}
 							</p>
 						</h4>
 						<button
@@ -37,25 +50,13 @@ class Dashboard extends Component {
 							Logout
             			</button>
 					</div>
-					<div className="landing-copy col s12 center-align">
-						<button
-							style={{
-								width: "300px",
-								borderRadius: "3px",
-								letterSpacing: "1.5px",
-								marginTop: "1rem"
-							}}
-							className="btn btn-large waves-effect waves-light hoverable blue accent-3">
-							View Transaction History
-						</button>
-					</div>
 				</div>
 			</div>
 		);
 	}
 }
 
-Dashboard.propTypes = {
+TippeeDashboard.propTypes = {
 	logoutUser: PropTypes.func.isRequired,
 	auth: PropTypes.object.isRequired
 };
@@ -67,4 +68,4 @@ const mapStateToProps = state => ({
 export default connect(
 	mapStateToProps,
 	{ logoutUser }
-)(Dashboard);
+)(TippeeDashboard);

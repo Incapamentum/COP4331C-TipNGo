@@ -18,6 +18,7 @@ const Tipper = require("../../models/Tipper");
 
 // @route POST api/users/registertipper
 // @desc Register Tipper user
+// @params firstname, email, password, password2
 // @access Public
 router.post("/registertipper", (req, res) => {
 	// Form validation
@@ -42,6 +43,7 @@ router.post("/registertipper", (req, res) => {
 
 			// Create Tipper document for user 
 			const newTipper = new Tipper({
+				name: req.body.firstname,
 				email: req.body.email,
 				userid: newUser.id
 			});
@@ -56,21 +58,53 @@ router.post("/registertipper", (req, res) => {
 					// Save new user to database
 					newUser
 						.save()
-						.then(user => res.json(user))
+						//.then(user => res.json(user))
 						.catch(err => console.log(err));
 				});
 			});
 
-			// Save tipper account to database
-			newTipper
-				.save()
-				.catch(err => console.log(err));
+			const stripe = require("stripe")(keys.secretTestKey);
+
+			stripe.customers.create({
+				description: "Tip'N'Go customer for " + req.body.email,
+				email: req.body.email
+			}, (err, customer) => {
+				if (err) throw err;
+
+				// Save new customer id to tipper and tipper to database
+				newTipper.stripeCustomer = customer.id;
+				newTipper
+					.save()
+					.catch(err => console.log(err));
+			});
+
+			// Create JWT Payload
+			const payload = {
+				id: newUser._id,
+				usertype: newUser.usertype,
+				name: newUser.firstname
+			};
+
+			// Sign token
+			jwt.sign(
+				payload,
+				keys.secretOrKey,
+				{
+					expiresIn: 31556926 // 1 year in seconds
+				}, (err, token) => {
+					res.json({
+						success: true,
+						token: "Bearer " + token
+					});
+				}
+			);
 		}
 	});
 });
 
 // @route POST api/users/registertippee
 // @desc Register Tippee user and create stripe account
+// @params firstname, lastname, email, password, password2
 // @access Public
 router.post("/registertippee", (req, res) => {
 	// Form validation
@@ -95,6 +129,7 @@ router.post("/registertippee", (req, res) => {
 
 			// Create Tippee document for user
 			const newTippee = new Tippee({
+				name: req.body.firstname,
 				email: req.body.email,
 				userName: req.body.username,
 				userid: newUser.id
@@ -110,7 +145,7 @@ router.post("/registertippee", (req, res) => {
 					// Save user document
 					newUser
 						.save()
-						.then(user => res.json(user))
+						//.then(user => res.json(user))
 						.catch(err => console.log(err));
 				});
 			});
@@ -123,7 +158,10 @@ router.post("/registertippee", (req, res) => {
 				country: "US",
 				email: req.body.email,
 				business_type: "individual",
-				business_profile: {mcc: "1520"},
+				business_profile: {
+					mcc: "1520",
+					product_description: "General services"
+				},
 				requested_capabilities: ["card_payments"],
 				individual: {
 					first_name: req.body.firstname,
@@ -143,12 +181,34 @@ router.post("/registertippee", (req, res) => {
 					.save()
 					.catch(err => console.log(err));
 			});
+
+			// Create JWT Payload
+			const payload = {
+				id: newUser._id,
+				usertype: newUser.usertype,
+				name: newUser.firstname
+			};
+
+			// Sign token
+			jwt.sign(
+				payload,
+				keys.secretOrKey,
+				{
+					expiresIn: 31556926 // 1 year in seconds
+				}, (err, token) => {
+					res.json({
+						success: true,
+						token: "Bearer " + token
+					});
+				}
+			);
 		}
 	});
 });
 
 // @route POST api/users/login
 // @desc Login user and return JWT token
+// @params email, password
 // @access Public
 router.post("/login", (req, res) => {
 	// Form validation
@@ -176,6 +236,7 @@ router.post("/login", (req, res) => {
 				// Create JWT Payload
 				const payload = {
 					id: user._id,
+					usertype: user.usertype,
 					name: user.firstname
 				};
 
@@ -185,8 +246,7 @@ router.post("/login", (req, res) => {
 					keys.secretOrKey,
 					{
 						expiresIn: 31556926 // 1 year in seconds
-					},
-					(err, token) => {
+					}, (err, token) => {
 						res.json({
 							success: true,
 							token: "Bearer " + token
@@ -200,6 +260,20 @@ router.post("/login", (req, res) => {
 			}
 		});
 	});
+});
+
+// @route POST api/users/finduser
+// @desc Request tippee document by id
+// @params id
+router.post("/finduser", (req, res) => {
+    const _id = req.body.id;
+
+    User.findOne({ _id }).then(user => {
+        if (!user) {
+            return res.status(404).json({ usernotfound: "User not found" });
+        }
+        res.json(user);
+    });
 });
 
 module.exports = router;

@@ -9,7 +9,19 @@ export const registerTipperUser = (userData, history) => dispatch => {
 	axios
 		.post("/api/users/registertipper", userData)
 		.then(res => {
-			history.push("/login");
+			// Set token to localStorage		
+			const { token } = res.data;
+			
+			localStorage.setItem("jwtToken", token);
+
+			// Set token to Auth header
+			setAuthToken(token);
+
+			// Decode token to get user data
+			const decoded = jwt_decode(token);
+
+			// Set current user
+			dispatch(setCurrentUser(decoded));
 		})
 		.catch(err =>
 			dispatch({
@@ -24,7 +36,19 @@ export const registerTippeeUser = (userData, history) => dispatch => {
 	axios
 		.post("/api/users/registertippee", userData)
 		.then(res => {
-			history.push("/login");
+			// Set token to localStorage		
+			const { token } = res.data;
+			
+			localStorage.setItem("jwtToken", token);
+
+			// Set token to Auth header
+			setAuthToken(token);
+
+			// Decode token to get user data
+			const decoded = jwt_decode(token);
+
+			// Set current user
+			dispatch(setCurrentUser(decoded));
 		})
 		.catch(err =>
 			dispatch({
@@ -41,7 +65,7 @@ export const loginUser = userData => dispatch => {
 		.then(res => {
 			// Set token to localStorage		
 			const { token } = res.data;
-
+			
 			localStorage.setItem("jwtToken", token);
 
 			// Set token to Auth header

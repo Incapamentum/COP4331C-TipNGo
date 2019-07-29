@@ -4,6 +4,9 @@ const Schema = mongoose.Schema;
 
 // Create Schema
 const TippeeSchema = new Schema({
+	name: {
+		type: String
+	},
 	email: {
 		type: String
 	},
@@ -22,12 +25,21 @@ const TippeeSchema = new Schema({
 	commendations: {
 		type: [String]
 	},
-	transactionHistory: [{ type: Schema.Types.ObjectId, ref: "transactions"}],
+	transactionHistory: [{
+		transactionid: String,
+		tippee: String,
+		stripeAccount: String,
+		tipper: String,
+		stripeCustomer: String,
+		date: Date,
+		amount: Number
+	}],
 	balanceUSD: {
 		type: Number, // saved as an integer; divided by 100 to calculate dollars and cents
 		default: 0
 	},
 	location: {
+		zip_code: { type: Number },
 		x: { type: Number },
 		y: { type: Number }
 	}
