@@ -14,12 +14,16 @@ import org.json.JSONObject;
 
 import online.teamsixstar.tipngo.R;
 
+import static online.teamsixstar.tipngo.JWTUtils.decoded;
+import static online.teamsixstar.tipngo.JWTUtils.getID;
+import static online.teamsixstar.tipngo.JWTUtils.getName;
 import static online.teamsixstar.tipngo.JsonIo.doJsonIo;
+import static online.teamsixstar.tipngo.SaveSharedPreference.saveAccountType;
 import static online.teamsixstar.tipngo.SaveSharedPreference.saveTippeeLogin;
 
 public class TippeeLogin extends AppCompatActivity {
 
-    public static final String url = "https://tip-n-go.herokuapp.com/api/users/login";
+    public static final String URL = "https://tip-n-go.herokuapp.com/api/users/login";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,7 +49,7 @@ public class TippeeLogin extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        JSONObject result = doJsonIo(url, payload.toString());
+        JSONObject result = doJsonIo(URL, payload.toString());
 
         if(result == null){
             textView.setText("Connection timeout");
@@ -55,7 +59,18 @@ public class TippeeLogin extends AppCompatActivity {
         if(result.has("success")){
             // Saving bearer key for automatically login in
             try {
-                saveTippeeLogin(this, result.getString("token").substring(7, result.getString("token").length() - 1));
+                String token = result.getString("token").substring(7, result.getString("token").length());
+                decoded(token);
+                String name = getName();
+                String id = getID();
+                if(id.compareTo("failed") == 0){
+                    textView.setText("Decode failed");
+                    Log.e("decode failed", "decode failed");
+                    return;
+                }
+                saveTippeeLogin(this, id, name);
+                saveAccountType(this, "tippee");
+                //saveTippeeLogin(this, result.getString("token").substring(7, result.getString("token").length() - 1));
             } catch (Exception e){
                 e.printStackTrace();
             }

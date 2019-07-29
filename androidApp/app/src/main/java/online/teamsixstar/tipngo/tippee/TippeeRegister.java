@@ -24,7 +24,7 @@ import static online.teamsixstar.tipngo.JsonIo.sendPostRequest;
 
 public class TippeeRegister extends AppCompatActivity {
 
-    private static final String url = "https://tip-n-go.herokuapp.com/api/users/registertippee";
+    private static final String URL = "https://tip-n-go.herokuapp.com/api/users/registertippee";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,6 +34,8 @@ public class TippeeRegister extends AppCompatActivity {
 
     public void doRegisterTippee(View v){
         EditText username = findViewById(R.id.tippeeUsername);
+        EditText firstName = findViewById(R.id.tippeeFirstName);
+        EditText lastName = findViewById(R.id.tippeeLastName);
         EditText email = findViewById(R.id.tippeeRegisterEmail);
         EditText pass = findViewById(R.id.tippeeRegPass);
         EditText passConfirm = findViewById(R.id.tippeeRegPassConfirm);
@@ -49,7 +51,9 @@ public class TippeeRegister extends AppCompatActivity {
 
         try {
 
-            payload.put("firstname", username.getText().toString());
+            payload.put("username", username.getText().toString());
+            payload.put("firstname", firstName.getText().toString());
+            payload.put("lastname", lastName.getText().toString());
             payload.put("email", email.getText().toString());
             payload.put("password", pass.getText().toString());
             payload.put("password2", passConfirm.getText().toString());
@@ -58,7 +62,7 @@ public class TippeeRegister extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        JSONObject result  = doJsonIo(url, payload.toString());
+        JSONObject result  = doJsonIo(URL, payload.toString());
 
         if(result == null){
             textView.setText("Connection timeout");
@@ -72,12 +76,18 @@ public class TippeeRegister extends AppCompatActivity {
             finish();
         }else{
             try {
-                if(result.has("firstname"))
-                    textView.setText(result.getString("firstname"));
+                if(result.has("username"))
+                    textView.setText(result.getString("username"));
                 if(result.has("email"))
                     textView.setText(result.getString("email"));
                 if(result.has("password"));
                     textView.setText(result.getString("password"));
+                if(result.has("password2"))
+                    textView.setText(result.getString("password2"));
+                if(result.has("firstname"))
+                    textView.setText(result.getString("firstname"));
+                if(result.has("lastname"))
+                    textView.setText(result.getString("lastname"));
             }catch(Exception e){
                 e.printStackTrace();
             }

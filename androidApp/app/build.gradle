@@ -31,4 +31,11 @@ dependencies {
     implementation 'com.google.android.gms:play-services:12.0.1'
     implementation 'pub.devrel:easypermissions:3.0.0'
     implementation 'com.google.android.gms:play-services-vision:12.0.1'
+    implementation 'androidmads.library.qrgenearator:QRGenearator:1.0.3'
+
+    api 'io.jsonwebtoken:jjwt-api:0.10.7'
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.10.7'
+    runtimeOnly('io.jsonwebtoken:jjwt-orgjson:0.10.7') {
+        exclude group: 'org.json', module: 'json' //provided by Android natively
+    }
 }

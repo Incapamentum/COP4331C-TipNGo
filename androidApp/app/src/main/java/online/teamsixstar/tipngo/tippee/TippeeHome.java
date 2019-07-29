@@ -4,11 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
@@ -16,11 +16,16 @@ import com.google.android.material.tabs.TabLayout;
 import online.teamsixstar.tipngo.About;
 import online.teamsixstar.tipngo.MainActivity;
 import online.teamsixstar.tipngo.R;
+import online.teamsixstar.tipngo.SaveSharedPreference;
 import online.teamsixstar.tipngo.tippee.tabs.SectionPagerAdapterTippee;
 import online.teamsixstar.tipngo.tippee.tabs.TippeeAccountTab;
 import online.teamsixstar.tipngo.tippee.tabs.TippeeBalanceTab;
 
+import static online.teamsixstar.tipngo.SaveSharedPreference.getTippeeName;
+
 public class TippeeHome extends AppCompatActivity {
+
+    public static final String URL = "https://tip-n-go.herokuapp.com/api/accounts/findtippee";
 
     private SectionPagerAdapterTippee sectionPagerAdapterTippee;
 
@@ -32,6 +37,7 @@ public class TippeeHome extends AppCompatActivity {
         setContentView(R.layout.tippee_home);
 
         Toolbar title = findViewById(R.id.tippeeHome);
+        title.setTitle("Welcome " + getTippeeName(this));
 
         // TODO fetch tippee information and set up name and recent transaction
 
@@ -83,9 +89,10 @@ public class TippeeHome extends AppCompatActivity {
     }
 
     private void doLogout(){
-        // TODO clear user data
+        SaveSharedPreference.clearUserName(this);
         Intent i = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(i);
+        finish();
         return;
     }
 

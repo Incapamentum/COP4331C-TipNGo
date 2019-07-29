@@ -27,9 +27,18 @@
     <string name="search_by_name">Search by Name</string>
     <string name="search">Search</string>
     <string name="qr_message">Please focus on QR code</string>
-    <string name="tippee_bank_account_title">Bank Account</string>
+    <string name="tippee_bank_account_title">Bank Accounts / Credit Cards</string>
     <string name="add_bank">Add</string>
     <string name="tippee_no_account_message">No account added</string>
     <string name="tippee_qr_generate_title">QR Code</string>
     <string name="generate_qr_code">Generate QR Code</string>
+    <string name="firstname">First Name</string>
+    <string name="lastname">Last Name</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="city">City</string>
+    <string name="address">Address</string>
+    <string name="address_line_2">Line 2</string>
+    <string name="state">State</string>
+    <string name="postal_code">Postal Code</string>
+    <string name="date">Date</string>
 </resources>

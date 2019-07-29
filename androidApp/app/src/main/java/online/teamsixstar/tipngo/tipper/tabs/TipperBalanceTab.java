@@ -1,9 +1,11 @@
 package online.teamsixstar.tipngo.tipper.tabs;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -11,13 +13,24 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 import online.teamsixstar.tipngo.R;
+import online.teamsixstar.tipngo.SaveSharedPreference;
+
+import static online.teamsixstar.tipngo.JsonIo.doJsonIo;
 
 public class TipperBalanceTab extends Fragment {
+
+    public static final String URL = "https://tip-n-go.herokuapp.com/api/accounts/findtipper";
+
     private static final String TAG = "tipperBalanceTab";
-    ArrayList<TipperTransactions> transactions;
+
+    ArrayList<TipperTransactions> transactions = new ArrayList<>();
 
     public TipperBalanceTab(){
 
@@ -37,9 +50,41 @@ public class TipperBalanceTab extends Fragment {
 
         RecyclerView rvTransactions = (RecyclerView) view.findViewById(R.id.tipperRecentActivity);
 
-        // TODO: load recent activity from the server here then add them to transactions ArrayList
-        // Testing RecyclerView entries
-        transactions = createTransactions(20);
+        JSONObject payload = new JSONObject();
+
+        try{
+            payload.put("id", SaveSharedPreference.getTipperLogin(getActivity()));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        JSONObject result = doJsonIo(URL, payload.toString());
+
+        if(result == null){
+            Toast.makeText(getActivity(), "Connection timeout", Toast.LENGTH_LONG).show();
+            return view;
+        }
+
+        JSONArray jsonArray = new JSONArray();
+
+        if(result.has("userid")){
+            try {
+                jsonArray = result.getJSONArray("transactionHistory");
+            }catch (JSONException e){
+                e.printStackTrace();
+                Toast.makeText(getActivity(), "Connection timeout", Toast.LENGTH_LONG).show();
+                return view;
+            }
+        }
+
+        try {
+            createTransactions(jsonArray);
+        }catch (JSONException e){
+            e.printStackTrace();
+            Toast.makeText(getActivity(), "Connection timeout", Toast.LENGTH_LONG).show();
+            return view;
+        }
+
         TransactionAdapterTipper adapter = new TransactionAdapterTipper(transactions);
         rvTransactions.setAdapter(adapter);
         rvTransactions.setLayoutManager(new LinearLayoutManager(this.getActivity()));
@@ -48,13 +93,22 @@ public class TipperBalanceTab extends Fragment {
     }
 
     // Function to test RecyclerView
-    public ArrayList<TipperTransactions> createTransactions(int numOfTrans){
-        ArrayList<TipperTransactions> transactions = new ArrayList<>();
-        String name = "Person";
-        for (int i = 0; i < numOfTrans; i++){
-            TipperTransactions trans = new TipperTransactions(name + " " + i, "10:" + i + " " + "am", (double)i);
-            transactions.add(trans);
+    public void createTransactions(JSONArray jsonArray) throws JSONException{
+        if(jsonArray.length() == 0){
+            noTransactions();
+        }else {
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                Log.d("jsonObjectTransactions", jsonObject.toString());
+                TipperTransactions trans = new TipperTransactions(jsonObject.getString("tippeeName"), jsonObject.getString("date"), jsonObject.getInt("ammount"));
+                transactions.add(trans);
+            }
+            return;
         }
-        return transactions;
+    }
+
+    public void noTransactions(){
+        TipperTransactions trans = new TipperTransactions("No transactions","", 0);
+        transactions.add(trans);
     }
 }

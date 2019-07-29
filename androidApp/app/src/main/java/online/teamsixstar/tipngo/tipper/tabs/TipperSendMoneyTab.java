@@ -32,6 +32,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -94,13 +95,14 @@ public class TipperSendMoneyTab extends Fragment implements OnMapReadyCallback {
                 if (locationResult == null) {
                     return;
                 }
+
                 for (Location location : locationResult.getLocations()) {
                     // Update UI with location data
                     // ...
                     requestingLocationUpdates = true;
                     startLocationUpdates();
                 }
-            };
+            }
         };
 
         Button button = view.findViewById(R.id.goToQRReader);
@@ -122,8 +124,13 @@ public class TipperSendMoneyTab extends Fragment implements OnMapReadyCallback {
         map.getUiSettings().setZoomControlsEnabled(true);
 
 
+
+
+
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
         requestLocationPermission();
+
+
 
         LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
                 .addLocationRequest(locationRequest);
@@ -158,15 +165,16 @@ public class TipperSendMoneyTab extends Fragment implements OnMapReadyCallback {
         });
 
 
-        requestLocationPermission();
         if (checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // here to request the missing permissions, and then overriding
             //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
             //                                          int[] grantResults)
             // to handle the case where the user grants the permission. See the documentation
             // for Activity#requestPermissions for more details.
+            requestLocationPermission();
             return;
         } else {
+            map.setMyLocationEnabled(permissions);
             fusedLocationClient.getLastLocation()
                     .addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
                         @Override
@@ -177,7 +185,8 @@ public class TipperSendMoneyTab extends Fragment implements OnMapReadyCallback {
                                 currentLocation = location;
                                 latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
                                 // TODO get user location and add location markers for tippee in the area
-                                map.addMarker(new MarkerOptions().position(latLng));
+                                Marker marker = map.addMarker(new MarkerOptions().position(latLng).title("You"));
+                                marker.showInfoWindow();
                                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
                             }
                         }
@@ -194,7 +203,7 @@ public class TipperSendMoneyTab extends Fragment implements OnMapReadyCallback {
     }
 
     private void startLocationUpdates() {
-        if (checkSelfPermission(getActivity() ,Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
         fusedLocationClient.requestLocationUpdates(locationRequest,
@@ -214,8 +223,9 @@ public class TipperSendMoneyTab extends Fragment implements OnMapReadyCallback {
     @AfterPermissionGranted(REQUEST_LOCATION_PERMISSION)
     public void requestLocationPermission() {
         String[] perms = {Manifest.permission.ACCESS_FINE_LOCATION};
-        if(EasyPermissions.hasPermissions(getActivity(), perms)) {
-            Toast.makeText(getActivity(), "Permission already granted", Toast.LENGTH_SHORT).show();
+        if (EasyPermissions.hasPermissions(getActivity(), perms)) {
+            //Toast.makeText(getActivity(), "Permission already granted", Toast.LENGTH_SHORT).show();
+
             permissions = true;
 
             createLocationRequest();
@@ -224,6 +234,7 @@ public class TipperSendMoneyTab extends Fragment implements OnMapReadyCallback {
 
         }
         else {
+            //LocationRequest.create();
             EasyPermissions.requestPermissions(getActivity(), "Please grant the location permission", REQUEST_LOCATION_PERMISSION, perms);
         }
     }

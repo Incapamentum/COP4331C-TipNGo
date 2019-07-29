@@ -12,6 +12,7 @@ import java.net.URL;
 
 public class JsonIo
 {
+    // This class is used to transmit json object to the server
 
     public static class MyThread extends Thread implements Runnable
     {
@@ -26,7 +27,6 @@ public class JsonIo
         public void run()
         {
             String ret = sendPostRequest(url, payload);
-            Log.e("ret", "ret result: " + ret);
             try
             {
                 jobj = new JSONObject(ret);
@@ -92,7 +92,6 @@ public class JsonIo
             }
             br.close();
             connection.disconnect();
-            Log.e("jsonString: ", "json " + jsonString.toString());
             return jsonString.toString();
         }
         catch (Exception e)
