@@ -38,10 +38,10 @@ const TippeeSchema = new Schema({
 		type: Number, // saved as an integer; divided by 100 to calculate dollars and cents
 		default: 0
 	},
+	zip_code: { type: Number },
 	location: {
-		zip_code: { type: Number },
-		latitude: { type: Number },
-		longitude: { type: Number }
+		latitude: { type: String },
+		longitude: { type: String }
 	}
 });
 
