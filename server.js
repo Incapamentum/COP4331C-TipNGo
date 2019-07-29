@@ -7,6 +7,7 @@ const path = require("path");
 const users = require("./routes/api/users");
 const accounts = require("./routes/api/accounts");
 const stripe = require("./routes/api/stripe");
+const pay = require("./routes/api/pay");
 
 const app = express();
 
@@ -40,6 +41,7 @@ require("./config/passport")(passport);
 app.use("/api/users", users);
 app.use("/api/accounts", accounts);
 app.use("/api/stripe", stripe);
+app.use("/api/pay", pay);
 
 // Server static assets if in production
 if (process.env.NODE_ENV === "production") {

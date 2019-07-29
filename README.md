@@ -44,7 +44,7 @@ Within users.js - concerning the creation and retrieval of User documents:
 
 
 
-Within accounts.js - Concerning the retrieval and update of Tipper and Tippee document:
+Within accounts.js - Concerning the retrieval and update of Tipper and Tippee documents:
 
     @route POST api/accounts/findtipper
     @desc Request Tipper document by id (of associated User document).

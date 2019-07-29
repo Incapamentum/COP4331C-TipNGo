@@ -12,7 +12,7 @@ const Tipper = require("../../models/Tipper");
 // @route POST api/stripe/editstripe
 // @desc Update or edit details of Stripe account
 // @params id, phone, city, line1, line2, postal_code, state,
-//         day, month, year, ssn_last_4
+//         date, month, year, ssn_last_4
 router.post("/editstripe", (req, res) => { 
     /*
     // Form validation
@@ -50,7 +50,7 @@ router.post("/editstripe", (req, res) => {
                             state: req.body.state,   
                         },
                         dob: {
-                            day: req.body.day,
+                            day: req.body.date,
                             month: req.body.month,
                             year: req.body.year
                         },

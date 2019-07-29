@@ -106,8 +106,23 @@ router.post("/searchbyemail", (req, res) => {
     });
 });
 
+// @routes POST api/accounts/searchbylocation (NOT YET IMPLEMENTED)
+// @desc Retrieve Tippee account document after searching by coordinates and 
+//       narrowing the search by zip code and range from coordinates.
+// @params zip_code, range, latitude, longitude
 router.post("/searchbylocation", (req, res) => {
+    const location = {
+        zip_code: req.body.zip_code,
+        latitude: req.body.latitude,
+        longitude: req.body.longitude
+    };
 
+    Tippee.find({ zip_code: location.zip_code }).then(tippees => {
+        if (tippees.isEmpty()) {
+            return res.status(404).json({ notippeesfound: "No Tippees in zip code" });
+        }
+        res.json(tippees);
+    });
 });
 
 module.exports = router;
