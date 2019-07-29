@@ -147,13 +147,20 @@ Within stripe.js - Concerning the update and manipulation of varioius Stripe acc
 Within pay.js - Concerning calls to send, receive, and transfer funds:
 
     @rout POST api/pay/sendtip
-    @desc Send tip from Tipper's connected Stripe customer payment token to Tippee's connected Stripe account.
+    @desc Send tip from Tipper's connected Stripe customer payment token to Tippee's connected Stripe account. Assumes Tipper has reusable source saved to customer object. Then saves transaction information to Tippee and Tipper documents and Transaction collection.
     @params ammount (in cents), id (of Tipper associated user), tippeeid (from Tippee object retreived in some search for Tippee)
     @response {
         success: Boolean
         charge: {New charge object: https://stripe.com/docs/api/charges/object}
     }
 
+    @rout POST api/pay/sendguesttip
+    @desc Send tip from anonymous payment token to Tippee's connected Stripe account. Then saves Transaction information to Tippee document and Transaction collection.
+    @params ammount (in cents), token (generated client-side: https://stripe.com/docs/api/tokens/create_card), tippeeid (from Tippee object retreived in some search for Tippee)
+    @response {
+        success: Boolean
+        charge: {New charge object: https://stripe.com/docs/api/charges/object}
+    }
 
     @route POST api/stripe/payout (NOT YET IMPLEMENTED)
     @desc Transfer funds from the Stripe platform to the Tippee's connected bank.
