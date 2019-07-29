@@ -262,4 +262,18 @@ router.post("/login", (req, res) => {
 	});
 });
 
+// @route POST api/users/finduser
+// @desc Request tippee document by id
+// @params id
+router.post("/finduser", (req, res) => {
+    const _id = req.body.id;
+
+    User.findOne({ _id }).then(user => {
+        if (!user) {
+            return res.status(404).json({ usernotfound: "User not found" });
+        }
+        res.json(user);
+    });
+});
+
 module.exports = router;
