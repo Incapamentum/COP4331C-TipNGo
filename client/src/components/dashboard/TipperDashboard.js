@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
-import { obtainTransHistory } from "../../actions/transactionHistory";
+import { obtainTransHistory } from "../../actions/transHistory";
 
 class TipperDashboard extends Component {
 	componentDidMount() {

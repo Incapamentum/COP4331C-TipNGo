@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
+import { obtainTransHistory } from "../../actions/transHistory";
 
 class TippeeDashboard extends Component {
 	componentDidMount() {
@@ -17,6 +18,12 @@ class TippeeDashboard extends Component {
 		e.preventDefault();
 		this.props.logoutUser();
 	};
+
+	onTransactionClick = e =>
+	{
+		e.preventDefault();
+		this.props.obtainTransHistory();
+	}
 
 	render() {
 		const { user } = this.props.auth;
@@ -49,6 +56,19 @@ class TippeeDashboard extends Component {
 							className="btn btn-large waves-effect waves-light hoverable blue accent-3">
 							Logout
             			</button>
+					</div>
+					<div className="landing-copy col s12 center-align">
+						<button
+							style={{
+								width: "300px",
+								borderRadius: "3px",
+								letterSpacing: "1.5px",
+								marginTop: "1rem"
+							}}
+							onClick={this.onTransactionClick}
+							className="btn btn-large waves-effect waves-light hoverable blue accent-3">
+							View Transaction History
+						</button>
 					</div>
 				</div>
 			</div>
