@@ -35,35 +35,76 @@ router.post("/editstripe", (req, res) => {
         if (!tippee) {
             return res.status(404).json({ tippeenotfound: "Tippee not found" });
         } else {
-            // Tippee is found, update stripe account with new info
-            stripe.accounts.update(
+            // Tippee found, retrieve account and check if SSN has been provided
+            stripe.accounts.retrieve(
                 tippee.stripeAccount,
-                {
-                    individual: {
-                        phone: req.body.phone,
-                        address: {
-                            city: req.body.city,
-                            country: "US",
-                            line1: req.body.line1,
-                            line2: req.body.line2,
-                            postal_code: req.body.postal_code,
-                            state: req.body.state,   
-                        },
-                        dob: {
-                            day: req.body.date,
-                            month: req.body.month,
-                            year: req.body.year
-                        },
-                        ssn_last_4: req.body.ssn_last_4
-                    }
-                }, (err, account) => {
-                    // Handle errors and respond with account
+                function(err, account) {
                     if (err) throw err;
-                    res.json({
-                        success: true,
-                        account: account
-                    });
-            });
+
+                    // Detect if SSN has been set
+                    if (account.individual.ssn_last_4_provided) {
+                        // Edit Stripe account, don't touch SSN
+                        stripe.accounts.update(
+                            tippee.stripeAccount,
+                            {
+                                individual: {
+                                    phone: req.body.phone,
+                                    address: {
+                                        city: req.body.city,
+                                        country: "US",
+                                        line1: req.body.line1,
+                                        line2: req.body.line2,
+                                        postal_code: req.body.postal_code,
+                                        state: req.body.state,   
+                                    },
+                                    dob: {
+                                        day: req.body.date,
+                                        month: req.body.month,
+                                        year: req.body.year
+                                    }
+                                }
+                            }, (err, account) => {
+                                // Handle errors and respond with account
+                                if (err) throw err;
+                                res.json({
+                                    success: true,
+                                    account: account
+                                });
+                        });
+
+                    } else {
+                        // Edit Stripe account, including SSN
+                        stripe.accounts.update(
+                            tippee.stripeAccount,
+                            {
+                                individual: {
+                                    phone: req.body.phone,
+                                    address: {
+                                        city: req.body.city,
+                                        country: "US",
+                                        line1: req.body.line1,
+                                        line2: req.body.line2,
+                                        postal_code: req.body.postal_code,
+                                        state: req.body.state,   
+                                    },
+                                    dob: {
+                                        day: req.body.date,
+                                        month: req.body.month,
+                                        year: req.body.year
+                                    },
+                                    ssn_last_4: req.body.ssn_last_4
+                                }
+                            }, (err, account) => {
+                                // Handle errors and respond with account
+                                if (err) throw err;
+                                res.json({
+                                    success: true,
+                                    account: account
+                                });
+                        });
+                    }
+                }
+            );
         }
     });
 });
