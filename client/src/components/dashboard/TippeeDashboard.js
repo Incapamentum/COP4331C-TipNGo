@@ -87,5 +87,5 @@ const mapStateToProps = state => ({
 
 export default connect(
 	mapStateToProps,
-	{ logoutUser }
+	{ logoutUser, obtainTransHistory }
 )(TippeeDashboard);
