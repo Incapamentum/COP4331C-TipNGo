@@ -149,7 +149,7 @@ router.post("/setpaymenttoken", (req, res) => {
         stripe.customers.update(
             tipper.stripeCustomer,
             {
-                source: req.token.id
+                source: req.body.token.id
             }, (err, customer) => {
                 if (err) throw err;
                 // Respond with customer object
