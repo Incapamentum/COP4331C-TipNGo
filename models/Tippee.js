@@ -27,6 +27,7 @@ const TippeeSchema = new Schema({
 	},
 	transactionHistory: [{
 		transactionid: String,
+		charge: String,
 		tippee: String,
 		stripeAccount: String,
 		tipper: String,

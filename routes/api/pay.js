@@ -29,11 +29,20 @@ router.post("/sendtip", (req, res) => {
             // Start stripe session
             const stripe = require("stripe")(keys.secretTestKey);
 
+            // stripe.customers.retrieve(
+            //     tipper.stripeCustomer,
+            //     (err, customer) => {
+            //         if(err) throw err;
+
+                    
+            //     }
+            // );
+
             // Create destination charge
             stripe.charges.create({
                 amount: amount,
                 currency: "usd",
-                source: tipper.stripeCustomer,
+                customer: tipper.stripeCustomer,
                 transfer_data: {
                     destination: tippee.stripeAccount
                 }
@@ -42,9 +51,10 @@ router.post("/sendtip", (req, res) => {
 
                 // Create new transaction document
                 const newTransaction = new Transaction({
-	                tippee: tippee,
+                    charge: charge.id,
+	                tippee: tippee.id,
 	                stripeAccount: tippee.stripeAccount,
-                    tipper: tipper,
+                    tipper: tipper.id,
 	                stripeCustomer: tipper.stripeCustomer,
 	                date: date,
 	                amount: amount
@@ -52,9 +62,10 @@ router.post("/sendtip", (req, res) => {
 
                 const transaction = { 
                     "transactionid": newTransaction.id,
-                    "tippee": tippee,
+                    "charge": charge.id,
+                    "tippee": tippee.id,
                     "stripeAccount": tippee.stripeAccount,
-                    "tipper": tipper,
+                    "tipper": tipper.id,
                     "stripeCustomer": tipper.stripeCustomer,
                     "date": date,
                     "amount": amount
@@ -67,6 +78,8 @@ router.post("/sendtip", (req, res) => {
                 tippee.transactionHistory.push(transaction);
                 tippee.balanceUSD += amount;
                 tippee.save();
+
+                newTransaction.save();
 
                 res.json({
                     success: true,
@@ -85,7 +98,7 @@ router.post("/sendguesttip", (req,res) => {
 // @desc Transfer funds from the stripe platform to the tippee's connected bank
 // @params id
 router.post("/payout", (req, res) => {
-    //find tippee document and get balance and stripeAccount
+    // find tippee document and get balance and stripeAccount
     // stripe.transfers.create a transfer with amount = balance and destination = stripeAccount 
 });
 

@@ -3,10 +3,11 @@ const Schema = mongoose.Schema;
 
 // Create Schema
 const TransactionSchema = new Schema({
+	charge: String,
 	tipper: String,
-	stripeAccount: String,
-	tippee: String,
 	stripeCustomer: String,
+	tippee: String,
+	stripeAccount: String,
 	date: Date,
 	amount: Number
 });
