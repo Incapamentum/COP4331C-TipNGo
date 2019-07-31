@@ -29,15 +29,6 @@ router.post("/sendtip", (req, res) => {
             // Start stripe session
             const stripe = require("stripe")(keys.secretTestKey);
 
-            // stripe.customers.retrieve(
-            //     tipper.stripeCustomer,
-            //     (err, customer) => {
-            //         if(err) throw err;
-
-                    
-            //     }
-            // );
-
             // Create destination charge
             stripe.charges.create({
                 amount: amount,
@@ -52,9 +43,11 @@ router.post("/sendtip", (req, res) => {
                 // Create new transaction document
                 const newTransaction = new Transaction({
                     charge: charge.id,
-	                tippee: tippee.id,
+                    tippee: tippee.id,
+                    tippeeName: tippee.name,
 	                stripeAccount: tippee.stripeAccount,
                     tipper: tipper.id,
+                    tipperName: tipper.name,
 	                stripeCustomer: tipper.stripeCustomer,
 	                date: date,
 	                amount: amount
@@ -64,8 +57,10 @@ router.post("/sendtip", (req, res) => {
                     "transactionid": newTransaction.id,
                     "charge": charge.id,
                     "tippee": tippee.id,
+                    "tippeeName": tippee.name,
                     "stripeAccount": tippee.stripeAccount,
                     "tipper": tipper.id,
+                    "tipperName": tipper.name,
                     "stripeCustomer": tipper.stripeCustomer,
                     "date": date,
                     "amount": amount

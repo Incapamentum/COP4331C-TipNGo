@@ -19,8 +19,10 @@ const TipperSchema = new Schema({
 		transactionid: String,
 		charge: String,
 		tippee: String,
+		tippeeName: String,
 		stripeAccount: String,
 		tipper: String,
+		tipperName: String,
 		stripeCustomer: String,
 		date: Date,
 		amount: Number
