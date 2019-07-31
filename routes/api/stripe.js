@@ -93,6 +93,13 @@ router.post("/editstripe", (req, res) => {
                                         year: req.body.year
                                     },
                                     ssn_last_4: req.body.ssn_last_4
+                                },
+                                settings: {
+                                    payouts: {
+                                        schedule: {
+                                            interval: "manual"
+                                        }
+                                    }
                                 }
                             }, (err, account) => {
                                 // Handle errors and respond with account
