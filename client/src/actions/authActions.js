@@ -115,6 +115,9 @@ export const logoutUser = () => dispatch => {
 export const sendTips = (pack) => dispatch => {
 	axios
 		.post("api/pay/sendtip", pack)
+		.then(res => {
+			console.log(res)
+		})
 		.catch(err =>
 			dispatch({
 				type: GET_ERRORS,

@@ -45,8 +45,8 @@ router.post("/findalltippees", (req, res) => {
             t = {userName: tippee.userName, tippeeid: tippee.id};
             results.push(t);
         });
-				console.log(results);
-        res.json(results);
+
+        res.json({results: results});
     });
 });
 

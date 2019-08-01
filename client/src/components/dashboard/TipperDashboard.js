@@ -2,10 +2,20 @@ import axios from "axios";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { logoutUser } from "../../actions/authActions";
-import { sendTips } from "../../actions/authActions";
+import { logoutUser, sendTips } from "../../actions/authActions";
+
 
 class TipperDashboard extends Component {
+	constructor() {
+		super();
+		//this.sendTips = this.sendTips.bind(this);
+		this.state = {
+			tippee: "",
+			amount: "",
+			errors: {}
+		};
+	}
+
 	componentDidMount() {
 		// If logged in as tippee and not tipper, logout and redirect
 		if (this.props.auth.isAuthenticated) {
@@ -25,10 +35,10 @@ class TipperDashboard extends Component {
 		axios
 			.post("api/accounts/findalltippees")
 			.then(res => {
-				console.log(res[1]);
+				console.log(res);
 				var options = ' ';
-				for(var i = 0; i < res.length; i++)
-					options += '<option value="'+res[i].userName+'" />';
+				for(var i = 0; i < res.data.results.length; i++)
+					options += '<option value="'+res.data.results[i].userName+'" />';
 
 				document.getElementById('tippeeList').innerHTML = options;
 				document.getElementById('searchTippee').style.visibility = "visible";
@@ -38,11 +48,28 @@ class TipperDashboard extends Component {
 			})
 	}
 
-	sendOnClick = e => {
+	onChange = e => {
+		this.setState({ [e.target.id]: e.target.value });
+	};
+
+	onSubmit = e => {
 		e.preventDefault();
-		const pack = 'hello';
-		this.props.sendTips(pack);
-	}
+		axios
+			.post("api/accounts/searchbyusername", {"username":this.state.tippee})
+			.then(res => {
+				console.log(res);
+				const {user} = this.props.auth;
+				var x = this.state.amount * 100;
+				const pack = {
+					tippeeid: res.data._id,
+					amount: x,
+					id: user.id
+				};
+
+				this.props.sendTips(pack);
+			})
+
+	};
 
 	render() {
 		const { user } = this.props.auth;
@@ -77,11 +104,49 @@ class TipperDashboard extends Component {
 							Send Tips
 									</button>
 						<form
-							id= "searchTippee">
+							id= "searchTippee"
+							style={{
+								visibility: "hidden",
+								display: "none"
+							}}
+							noValidate onSubmit={this.onSubmit}>
+							<input
+								list="tippeeList"
+								onChange={this.onChange}
+								value={this.state.tippee}
+								//error={errors.tippee}
+								id="tippee"
+								>
+								</input>
 							<datalist
-								id= "tippeeList">
-
+								id= "tippeeList"
+								style={{
+									visibility: "hidden",
+									display: "none"
+								}}>
 								</datalist>
+							<input
+							type="number"
+							onChange={this.onChange}
+							value={this.state.amount}
+							//error={errors.amount}
+							id="amount"
+							>
+								</input>
+							<input
+							type="submit"
+							value="Send Tip"
+							style={{
+								width: "150px",
+								borderRadius: "3px",
+								letterSpacing: "1.5px",
+								marginTop: "1rem"
+							}}
+							className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+							>
+								</input>
+
+
 							</form>
 						<button
 							style={{
@@ -125,5 +190,5 @@ const mapStateToProps = state => ({
 
 export default connect(
 	mapStateToProps,
-	{ logoutUser }
+	{ logoutUser, sendTips }
 )(TipperDashboard);
