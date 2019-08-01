@@ -70,7 +70,7 @@ class TippeeDashboard extends Component {
 								marginTop: "1rem"
 							}}
 							onClick={this.onLogoutClick}
-							className="btn btn-large waves-effect waves-light hoverable blue accent-3">
+							className="btn btn-large waves-effect waves-light hoverable accent-3">
 							Logout
             			</button>
 					</div>
@@ -83,7 +83,7 @@ class TippeeDashboard extends Component {
 								marginTop: "1rem"
 							}}
 							onClick={this.onTransactionClick}
-							className="btn btn-large waves-effect waves-light hoverable blue accent-3">
+							className="btn btn-large waves-effect waves-light hoverable accent-3">
 							View Transaction History
 						</button>
 					</div>
