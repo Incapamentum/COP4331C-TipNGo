@@ -33,6 +33,23 @@ router.post("/findtippee", (req, res) => {
     });
 });
 
+router.post("/findalltippees", (req, res) => {
+    Tippee.find({}, (err, tippees) => {
+
+        const results = [{
+            userName: String,
+            tippeeid: String
+        }];
+
+        tippees.forEach((tippee) => {
+            t = {userName: tippee.userName, tippeeid: tippee.id};
+            results.push(t);
+        });
+
+        res.json(results);
+    });
+});
+
 // @route api/accounts/deletetippee
 // @desc Deletes or disables all information associated with user including stripe
 //       account, tippee document, and user document
