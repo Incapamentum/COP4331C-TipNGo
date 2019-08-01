@@ -19,13 +19,14 @@ export const obtainTransHistory = () => dispatch =>
         );
 };
 
-export const obtainBalance = (userID) => dispatch =>
+export const obtainBalance = (jsonUserID) => dispatch =>
 {
     axios
-        .post("/api/accounts/findtippee", userID)
+        .post("/api/accounts/findtippee", jsonUserID)
         .then(res =>
             {
-                console.log(res)
+                console.log(res.data.balanceUSD/100)
+                return res.data.balanceUSD/100
             })
         .catch(err =>
             dispatch({

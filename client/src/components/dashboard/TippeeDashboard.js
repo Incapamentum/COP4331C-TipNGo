@@ -3,15 +3,34 @@ import axios from "axios";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
-import { obtainTransHistory, obtainBalance } from "../../actions/financials";
+import { obtainTransHistory } from "../../actions/financials";
 
 class TippeeDashboard extends Component {
+
+	state = {
+		balance: 0,
+		jsonUserID: {}
+	}
+
 	componentDidMount() {
 		// If logged in as tipper and not tippee, redirect
 		if (this.props.auth.isAuthenticated) {
 			const { user } = this.props.auth;
 			if (user.usertype !== "tippee")
 				this.props.logoutUser();
+			// Once confirmed as a tippee, change the jsonUserID to properly have the data
+			this.state.jsonUserID = {"id": user.id}
+			// Performing a POST request to obtain balance information and setting its state
+			axios
+				.post("/api/accounts/findtippee", this.state.jsonUserID)
+				.then(res =>
+					{
+						this.setState({balance: res.data.balanceUSD/100})
+					})
+				.catch(err =>
+					{
+						console.log(err)
+					})
 		}
 	}
 
@@ -29,8 +48,7 @@ class TippeeDashboard extends Component {
 	render() {
 		const { user } = this.props.auth;
 
-		return (
-			
+		return (			
 			<div style={{ height: "75vh" }} className="container valign-wrapper">
 				<div className="row">
 					<div className="landing-copy col s12 center-align">
@@ -38,7 +56,7 @@ class TippeeDashboard extends Component {
 							<b>Welcome</b> {user.name.split(" ")[0]}
 							<p className="flow-text grey-text text-darken-1">
 								<br />
-                                <b>Your Balance:</b> {this.props.obtainBalance("hello")}
+								<b>Your Balance:</b> ${this.state.balance}
                                 <br />
                                 <br />
 							</p>
@@ -85,5 +103,5 @@ const mapStateToProps = state => ({
 
 export default connect(
 	mapStateToProps,
-	{ logoutUser, obtainTransHistory, obtainBalance }
+	{ logoutUser, obtainTransHistory}
 )(TippeeDashboard);
