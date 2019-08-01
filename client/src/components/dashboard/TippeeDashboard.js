@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
+import { obtainTransHistory } from "../../actions/transHistory";
 
 class TippeeDashboard extends Component {
 	componentDidMount() {
@@ -18,6 +19,12 @@ class TippeeDashboard extends Component {
 		this.props.logoutUser();
 	};
 
+	onTransactionClick = e =>
+	{
+		e.preventDefault();
+		this.props.obtainTransHistory();
+	}
+
 	render() {
 		const { user } = this.props.auth;
 
@@ -28,14 +35,14 @@ class TippeeDashboard extends Component {
 						<h4>
 							<b>Welcome</b> {user.name.split(" ")[0]}
 							<p className="flow-text grey-text text-darken-1">
-								You are logged into{" "}
-								<span style={{ fontFamily: "monospace" }}>Tip'N'Go</span>
+								{/* You are logged into{" "} */}
+								{/* <span style={{ fontFamily: "monospace" }}>Tip'N'Go</span> */}
 								<br />
-                                <b>This is the Tippee Dashboard</b>
+                                <b>Balance:</b>
                                 <br />
-                                Your userid is {user.id}
+                                {/* Your userid is {user.id} */}
                                 <br />
-                                You are a {user.usertype}
+                                {/* You are a {user.usertype} */}
 							</p>
 						</h4>
 						<button
@@ -50,6 +57,29 @@ class TippeeDashboard extends Component {
 							Logout
             			</button>
 					</div>
+					<div className="landing-copy col s12 center-align">
+						<button
+							style={{
+								width: "300px",
+								borderRadius: "3px",
+								letterSpacing: "1.5px",
+								marginTop: "1rem"
+							}}
+							onClick={this.onTransactionClick}
+							className="btn btn-large waves-effect waves-light hoverable blue accent-3">
+							View Transaction History
+						</button>
+					</div>
+					{/* <h1 
+					style={{
+						width: "150px",
+						borderRadius: "3px",
+						position: "absolute",
+						top: "150px",
+						right: "150px"
+					}}>
+						Balance:
+					</h1> */}
 				</div>
 			</div>
 		);
@@ -67,5 +97,5 @@ const mapStateToProps = state => ({
 
 export default connect(
 	mapStateToProps,
-	{ logoutUser }
+	{ logoutUser, obtainTransHistory }
 )(TippeeDashboard);

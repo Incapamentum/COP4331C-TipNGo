@@ -94,6 +94,19 @@ class TipperDashboard extends Component {
 							Logout
             			</button>
 					</div>
+					<div className="landing-copy col s12 center-align">
+						<button
+							style={{
+								width: "300px",
+								borderRadius: "3px",
+								letterSpacing: "1.5px",
+								marginTop: "1rem"
+							}}
+							onClick={this.onTransactionClick}
+							className="btn btn-large waves-effect waves-light hoverable blue accent-3">
+							View Transaction History
+						</button>
+					</div>
 				</div>
 			</div>
 		);
@@ -111,5 +124,6 @@ const mapStateToProps = state => ({
 
 export default connect(
 	mapStateToProps,
-	{ logoutUser }
+	{ logoutUser, obtainTransHistory }
+	// { obtainTransHistory }
 )(TipperDashboard);
