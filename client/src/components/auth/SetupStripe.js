@@ -85,7 +85,7 @@ class SetupStripe extends Component {
         const { errors } = this.state;
 
         return (
-            <div className="container">
+            <div className="container" style={{ paddingTop: "80px" }}>
 				<div className="row">
 					<div className="col s8 offset-s2">
 						<div className="col s12" style={{ paddingLeft: "11.250px" }}>
@@ -218,7 +218,7 @@ class SetupStripe extends Component {
 										marginTop: "1rem"
 									}}
 									type="submit"
-									className="btn btn-large waves-effect waves-light hoverable green accent-3">
+									className="btn btn-large waves-effect waves-light hoverable accent-3">
 									Continue
                 				</button>
 							</div>

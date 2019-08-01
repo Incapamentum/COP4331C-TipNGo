@@ -19,7 +19,8 @@ class TippeeDashboard extends Component {
 			if (user.usertype !== "tippee")
 				this.props.logoutUser();
 			// Once confirmed as a tippee, change the jsonUserID to properly have the data
-			this.state.jsonUserID = {"id": user.id}
+			// this.state.jsonUserID = {"id": user.id}
+			this.setState({id: user.id});
 			// Performing a POST request to obtain balance information and setting its state
 			axios
 				.post("/api/accounts/findtippee", this.state.jsonUserID)

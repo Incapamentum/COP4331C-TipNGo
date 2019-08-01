@@ -100,7 +100,7 @@ class TipperDashboard extends Component {
 								marginTop: "1rem"
 							}}
 							onClick={this.sendTipsOnClick}
-							className="btn btn-large waves-effect waves-light hoverable blue accent-3">
+							className="btn btn-large waves-effect waves-light hoverable accent-3">
 							Send Tips
 									</button>
 						<form
@@ -114,6 +114,7 @@ class TipperDashboard extends Component {
 								list="tippeeList"
 								onChange={this.onChange}
 								value={this.state.tippee}
+								placeholder="Search for a Tippee"
 								//error={errors.tippee}
 								id="tippee"
 								>
@@ -129,6 +130,7 @@ class TipperDashboard extends Component {
 							type="number"
 							onChange={this.onChange}
 							value={this.state.amount}
+							placeholder="Tip amount"
 							//error={errors.amount}
 							id="amount"
 							>
@@ -142,7 +144,7 @@ class TipperDashboard extends Component {
 								letterSpacing: "1.5px",
 								marginTop: "1rem"
 							}}
-							className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+							className="btn btn-large waves-effect waves-light hoverable accent-3"
 							>
 								</input>
 
@@ -156,7 +158,7 @@ class TipperDashboard extends Component {
 								marginTop: "1rem"
 							}}
 							onClick={this.onLogoutClick}
-							className="btn btn-large waves-effect waves-light hoverable blue accent-3">
+							className="btn btn-large waves-effect waves-light hoverable accent-3">
 							Logout
             			</button>
 					</div>
@@ -169,7 +171,7 @@ class TipperDashboard extends Component {
 								marginTop: "1rem"
 							}}
 							onClick={this.onTransactionClick}
-							className="btn btn-large waves-effect waves-light hoverable blue accent-3">
+							className="btn btn-large waves-effect waves-light hoverable accent-3">
 							View Transaction History
 						</button>
 					</div>
