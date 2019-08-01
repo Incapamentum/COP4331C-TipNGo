@@ -203,6 +203,7 @@ router.post("/setpaymenttoken", (req, res) => {
                 if (err) throw err;
                 // Respond with customer object
                 res.json({
+                    success: true,
                     customer: customer
                 });
             }
