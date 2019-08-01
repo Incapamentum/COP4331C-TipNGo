@@ -35,7 +35,7 @@ export const setupBank = (bankData, history) => dispatch => {
             throw result.error;
         } else {
             const payload = {
-                userid: bankData.userid,
+                id: bankData.id,
                 token: result.token
             };
 

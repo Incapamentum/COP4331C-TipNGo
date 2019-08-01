@@ -38,7 +38,7 @@ class SetupStripe extends Component {
 			// } else {
 			// 	this.props.history.push("/setupstripe");
 			// }
-			this.props.history.push("/setupbank");
+			
 		}
 		if (nextProps.errors) {
 			this.setState({
@@ -58,10 +58,10 @@ class SetupStripe extends Component {
         const dob = new Date(this.state.dob);
         var year = dob.getFullYear();
         var month = dob.getMonth();
-        var day = dob.getDate();
+        var date = dob.getDate();
 
         const newStripeInfo = {
-            userid: user.id,
+            id: user.id,
             phone: this.state.phone,
             city: this.state.city,
             line1: this.state.line1,
@@ -70,12 +70,14 @@ class SetupStripe extends Component {
             state: this.state.state,
             ssn_last_4: this.state.ssn_last_4,
             dob: this.state.dob,
-            day: day,
+            date: date,
             month: month,
             year: year
         };
 
 		this.props.setupStripe(newStripeInfo, this.props.history);
+
+		this.props.history.push("/setupbank");
 		
     };
 

@@ -126,6 +126,7 @@ router.post("/addbankaccount", (req, res) => {
     // Extract user id from request
     const userid = req.body.id;
 
+    console.log(req.body);
     // Find tippee in database to get stripe account id
     Tippee.findOne({ userid }).then(tippee => {
         if (!tippee) {

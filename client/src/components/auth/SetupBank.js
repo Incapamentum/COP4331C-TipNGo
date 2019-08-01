@@ -22,6 +22,7 @@ class SetupBank extends Component {
 				errors: nextProps.errors
 			});
 		}
+
     }
 
     onChange = e => {
@@ -34,13 +35,15 @@ class SetupBank extends Component {
         const { user } = this.props.auth;
 
         const newBankData = {
-            userid: user.id,
+            id: user.id,
             name: this.state.name,
             routing_number: this.state.routing_number,
             account_number: this.state.account_number
         };
 
-        this.props.setupBank(newBankData, this.props.history);
+		this.props.setupBank(newBankData, this.props.history);
+		
+		this.props.history.push("/tippeedashboard");
     };
 
     render() {
