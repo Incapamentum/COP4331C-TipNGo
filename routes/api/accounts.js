@@ -46,7 +46,7 @@ router.post("/findalltippees", (req, res) => {
             results.push(t);
         });
 
-        res.json(results);
+        res.json({results: results});
     });
 });
 
