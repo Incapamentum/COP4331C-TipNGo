@@ -173,6 +173,7 @@ router.post("/searchbylocation", (req, res) => {
             tippee_lat = parseFloat(tippee.location.latitude);
             tippee_long = parseFloat(tippee.location.longitude);
 
+
             // Calculate distance between Tippee and target location
             const distance_between = Math.sqrt(Math.pow((tippee_lat - target_lat),2) + Math.pow((tippee_long - target_long),2));
 
@@ -181,6 +182,7 @@ router.post("/searchbylocation", (req, res) => {
                 results.push(tippee);
             }
         });
+
 
         if (results.length == 0) {
             return res.status(404).json({ notippeesinrange: "No Tippees in given range" });

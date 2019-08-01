@@ -7,7 +7,10 @@ export const obtainTransHistory = () => dispatch =>
 {
     axios
         .post("/api/accounts/transactionhistory")
-        .then(console.log("Test"))
+        .then(res =>
+            {
+                
+            })
         .catch(err =>
             dispatch({
                 type: GET_ERRORS,

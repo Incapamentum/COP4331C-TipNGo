@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser, sendTips } from "../../actions/authActions";
-
+import { obtainTransHistory } from "../../actions/financials";
 
 class TipperDashboard extends Component {
 	constructor() {
