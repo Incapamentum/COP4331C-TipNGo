@@ -18,20 +18,3 @@ export const obtainTransHistory = () => dispatch =>
             })
         );
 };
-
-export const obtainBalance = (jsonUserID) => dispatch =>
-{
-    axios
-        .post("/api/accounts/findtippee", jsonUserID)
-        .then(res =>
-            {
-                console.log(res.data.balanceUSD/100)
-                return res.data.balanceUSD/100
-            })
-        .catch(err =>
-            dispatch({
-                type: GET_ERRORS,
-                payload: err.response.data
-            })
-        );
-};
