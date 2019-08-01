@@ -7,10 +7,20 @@ import { obtainTransHistory } from "../../actions/financials";
 
 class TippeeDashboard extends Component {
 
-	state = {
-		balance: 0,
-		jsonUserID: {}
+
+	constructor() {
+		super();
+		//this.sendTips = this.sendTips.bind(this);
+		this.state = {
+			balance: 0,
+			jsonUserID: "",
+			errors: {}
+		};
 	}
+	// state = {
+	// 	balance: 0,
+	// 	jsonUserID: {}
+	// }
 
 	componentDidMount() {
 		// If logged in as tipper and not tippee, redirect
@@ -19,11 +29,12 @@ class TippeeDashboard extends Component {
 			if (user.usertype !== "tippee")
 				this.props.logoutUser();
 			// Once confirmed as a tippee, change the jsonUserID to properly have the data
+			
 			// this.state.jsonUserID = {"id": user.id}
-			this.setState({id: user.id});
+			
 			// Performing a POST request to obtain balance information and setting its state
 			axios
-				.post("/api/accounts/findtippee", this.state.jsonUserID)
+				.post("/api/accounts/findtippee", {"id": user.id})
 				.then(res =>
 					{
 						this.setState({balance: res.data.balanceUSD/100})
