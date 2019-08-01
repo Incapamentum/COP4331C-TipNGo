@@ -21,13 +21,31 @@ class SetupStripe extends Component {
         };
     }
 
-    componentWillReceiveProps(nextProps) {
+    // componentWillReceiveProps(nextProps) {
+	// 	if (nextProps.errors) {
+	// 		this.setState({
+	// 			errors: nextProps.errors
+	// 		});
+	// 	}
+	// }
+	
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.auth.isAuthenticated) {
+			// const { user } = nextProps.auth;
+			// if (user.usertype === "tipper")
+			// {
+			// 	this.props.history.push("/tipperdashboard");
+			// } else {
+			// 	this.props.history.push("/setupstripe");
+			// }
+			this.props.history.push("/setupbank");
+		}
 		if (nextProps.errors) {
 			this.setState({
 				errors: nextProps.errors
 			});
 		}
-    }
+	}
     
     onChange = e => {
 		this.setState({ [e.target.id]: e.target.value });

@@ -33,6 +33,23 @@ router.post("/findtippee", (req, res) => {
     });
 });
 
+router.post("/findalltippees", (req, res) => {
+    Tippee.find({}, (err, tippees) => {
+
+        const results = [{
+            userName: String,
+            tippeeid: String
+        }];
+
+        tippees.forEach((tippee) => {
+            t = {userName: tippee.userName, tippeeid: tippee.id};
+            results.push(t);
+        });
+
+        res.json({results: results});
+    });
+});
+
 // @route api/accounts/deletetippee
 // @desc Deletes or disables all information associated with user including stripe
 //       account, tippee document, and user document
@@ -156,6 +173,7 @@ router.post("/searchbylocation", (req, res) => {
             tippee_lat = parseFloat(tippee.location.latitude);
             tippee_long = parseFloat(tippee.location.longitude);
 
+
             // Calculate distance between Tippee and target location
             const distance_between = Math.sqrt(Math.pow((tippee_lat - target_lat),2) + Math.pow((tippee_long - target_long),2));
 
@@ -164,6 +182,7 @@ router.post("/searchbylocation", (req, res) => {
                 results.push(tippee);
             }
         });
+
 
         if (results.length == 0) {
             return res.status(404).json({ notippeesinrange: "No Tippees in given range" });
