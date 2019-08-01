@@ -90,7 +90,8 @@ class TippeeDashboard extends Component {
 								width: "300px",
 								borderRadius: "3px",
 								letterSpacing: "1.5px",
-								marginTop: "1rem"
+								marginTop: "1rem",
+								visibility: "hidden"
 							}}
 							onClick={this.onTransactionClick}
 							className="btn btn-large waves-effect waves-light hoverable accent-3">
