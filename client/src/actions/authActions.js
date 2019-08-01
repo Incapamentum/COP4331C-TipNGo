@@ -9,9 +9,9 @@ export const registerTipperUser = (userData, history) => dispatch => {
 	axios
 		.post("/api/users/registertipper", userData)
 		.then(res => {
-			// Set token to localStorage		
+			// Set token to localStorage
 			const { token } = res.data;
-			
+
 			localStorage.setItem("jwtToken", token);
 
 			// Set token to Auth header
@@ -36,9 +36,9 @@ export const registerTippeeUser = (userData, history) => dispatch => {
 	axios
 		.post("/api/users/registertippee", userData)
 		.then(res => {
-			// Set token to localStorage		
+			// Set token to localStorage
 			const { token } = res.data;
-			
+
 			localStorage.setItem("jwtToken", token);
 
 			// Set token to Auth header
@@ -63,9 +63,9 @@ export const loginUser = userData => dispatch => {
 	axios
 		.post("/api/users/login", userData)
 		.then(res => {
-			// Set token to localStorage		
+			// Set token to localStorage
 			const { token } = res.data;
-			
+
 			localStorage.setItem("jwtToken", token);
 
 			// Set token to Auth header
@@ -109,3 +109,16 @@ export const logoutUser = () => dispatch => {
 	// Set current user to empty object {} which will set isAuthenticated to false
 	dispatch(setCurrentUser({}));
 };
+
+// Tipper Send Tips
+
+export const sendTips = (pack) => dispatch => {
+	axios
+		.post("api/pay/sendtip", pack)
+		.catch(err =>
+			dispatch({
+				type: GET_ERRORS,
+				payload: err.response.data
+			})
+		);
+}

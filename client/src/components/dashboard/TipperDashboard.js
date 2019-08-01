@@ -1,7 +1,9 @@
+import axios from "axios";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
+import { sendTips } from "../../actions/authActions";
 
 class TipperDashboard extends Component {
 	componentDidMount() {
@@ -17,6 +19,29 @@ class TipperDashboard extends Component {
 		e.preventDefault();
 		this.props.logoutUser();
 	};
+
+	sendTipsOnClick = e => {
+		e.preventDefault();
+		axios
+			.post("api/accounts/findalltippees")
+			.then(res => {
+				var options = ' ';
+				for(var i = 0; i < res.length; i++)
+					options += '<option value="'+res[i].userName+'" />';
+
+				document.getElementById('tippeeList').innerHTML = options;
+				document.getElementById('searchTippee').style.visibility = "visible";
+				document.getElementById('searchTippee').style.display = "block";
+				document.getElementById('tippeeList').style.visibility = "visible";
+				document.getElementById('tippeeList').style.display = "block";
+			})
+	}
+
+	sendOnClick = e => {
+		e.preventDefault();
+		const pack = 'hello';
+		this.props.sendTips(pack);
+	}
 
 	render() {
 		const { user } = this.props.auth;
@@ -38,6 +63,25 @@ class TipperDashboard extends Component {
                                 You are a {user.usertype}
 							</p>
 						</h4>
+						<button
+							id= "sendButton"
+							style={{
+								width: "150px",
+								borderRadius: "3px",
+								letterSpacing: "1.5px",
+								marginTop: "1rem"
+							}}
+							onClick={this.sendTipsOnClick}
+							className="btn btn-large waves-effect waves-light hoverable blue accent-3">
+							Send Tips
+									</button>
+						<form
+							id= "searchTippee">
+							<datalist
+								id= "tippeeList">
+
+								</datalist>
+							</form>
 						<button
 							style={{
 								width: "150px",
