@@ -12,7 +12,7 @@ const Tipper = require("../../models/Tipper");
 // @route POST api/stripe/editstripe
 // @desc Update or edit details of Stripe account
 // @params id, phone, city, line1, line2, postal_code, state,
-//         day, month, year, ssn_last_4
+//         date, month, year, ssn_last_4
 router.post("/editstripe", (req, res) => { 
     /*
     // Form validation
@@ -35,35 +35,83 @@ router.post("/editstripe", (req, res) => {
         if (!tippee) {
             return res.status(404).json({ tippeenotfound: "Tippee not found" });
         } else {
-            // Tippee is found, update stripe account with new info
-            stripe.accounts.update(
+            // Tippee found, retrieve account and check if SSN has been provided
+            stripe.accounts.retrieve(
                 tippee.stripeAccount,
-                {
-                    individual: {
-                        phone: req.body.phone,
-                        address: {
-                            city: req.body.city,
-                            country: "US",
-                            line1: req.body.line1,
-                            line2: req.body.line2,
-                            postal_code: req.body.postal_code,
-                            state: req.body.state,   
-                        },
-                        dob: {
-                            day: req.body.day,
-                            month: req.body.month,
-                            year: req.body.year
-                        },
-                        ssn_last_4: req.body.ssn_last_4
-                    }
-                }, (err, account) => {
-                    // Handle errors and respond with account
+                function(err, account) {
                     if (err) throw err;
-                    res.json({
-                        success: true,
-                        account: account
-                    });
-            });
+
+                    // Detect if SSN has been set
+                    if (account.individual.ssn_last_4_provided) {
+                        // Edit Stripe account, don't touch SSN
+                        stripe.accounts.update(
+                            tippee.stripeAccount,
+                            {
+                                individual: {
+                                    phone: req.body.phone,
+                                    address: {
+                                        city: req.body.city,
+                                        country: "US",
+                                        line1: req.body.line1,
+                                        line2: req.body.line2,
+                                        postal_code: req.body.postal_code,
+                                        state: req.body.state,   
+                                    },
+                                    dob: {
+                                        day: req.body.date,
+                                        month: req.body.month,
+                                        year: req.body.year
+                                    }
+                                }
+                            }, (err, account) => {
+                                // Handle errors and respond with account
+                                if (err) throw err;
+                                res.json({
+                                    success: true,
+                                    account: account
+                                });
+                        });
+
+                    } else {
+                        // Edit Stripe account, including SSN
+                        stripe.accounts.update(
+                            tippee.stripeAccount,
+                            {
+                                individual: {
+                                    phone: req.body.phone,
+                                    address: {
+                                        city: req.body.city,
+                                        country: "US",
+                                        line1: req.body.line1,
+                                        line2: req.body.line2,
+                                        postal_code: req.body.postal_code,
+                                        state: req.body.state,   
+                                    },
+                                    dob: {
+                                        day: req.body.date,
+                                        month: req.body.month,
+                                        year: req.body.year
+                                    },
+                                    ssn_last_4: req.body.ssn_last_4
+                                },
+                                settings: {
+                                    payouts: {
+                                        schedule: {
+                                            interval: "manual"
+                                        }
+                                    }
+                                }
+                            }, (err, account) => {
+                                // Handle errors and respond with account
+                                if (err) throw err;
+                                res.json({
+                                    success: true,
+                                    account: account
+                                });
+                        });
+                    }
+                }
+            );
         }
     });
 });
@@ -129,14 +177,6 @@ router.post("/retrievestripe", (req, res) => {
     });
 });
 
-// @route POST api/stripe/payout
-// @desc Transfer funds from the stripe platform to the tippee's connected bank
-// @params id
-router.post("/payout", (req, res) => {
-//find tippee document and get balance and stripeAccount
-// stripe.transfers.create a transfer with amount = balance and destination = stripeAccount 
-});
-
 // @route POST api/accounts/setpaymenttoken
 // @desc Set a card token to a tipper account to use in account charges
 // @params id, token (generated by client-side token.create)
@@ -157,7 +197,7 @@ router.post("/setpaymenttoken", (req, res) => {
         stripe.customers.update(
             tipper.stripeCustomer,
             {
-                source: req.token.id
+                source: req.body.token.id
             }, (err, customer) => {
                 if (err) throw err;
                 // Respond with customer object

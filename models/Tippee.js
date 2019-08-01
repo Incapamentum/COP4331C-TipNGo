@@ -27,9 +27,12 @@ const TippeeSchema = new Schema({
 	},
 	transactionHistory: [{
 		transactionid: String,
+		charge: String,
 		tippee: String,
+		tippeeName: String,
 		stripeAccount: String,
 		tipper: String,
+		tipperName: String,
 		stripeCustomer: String,
 		date: Date,
 		amount: Number
@@ -38,10 +41,10 @@ const TippeeSchema = new Schema({
 		type: Number, // saved as an integer; divided by 100 to calculate dollars and cents
 		default: 0
 	},
+	zip_code: { type: Number },
 	location: {
-		zip_code: { type: Number },
-		x: { type: Number },
-		y: { type: Number }
+		latitude: { type: String },
+		longitude: { type: String }
 	}
 });
 
