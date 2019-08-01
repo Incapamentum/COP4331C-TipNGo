@@ -1,16 +1,36 @@
 import React, { Component } from "react";
+import axios from "axios";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
-import { obtainTransHistory } from "../../actions/transHistory";
+import { obtainTransHistory } from "../../actions/financials";
 
 class TippeeDashboard extends Component {
+
+	state = {
+		balance: 0,
+		jsonUserID: {}
+	}
+
 	componentDidMount() {
 		// If logged in as tipper and not tippee, redirect
 		if (this.props.auth.isAuthenticated) {
 			const { user } = this.props.auth;
 			if (user.usertype !== "tippee")
 				this.props.logoutUser();
+			// Once confirmed as a tippee, change the jsonUserID to properly have the data
+			this.state.jsonUserID = {"id": user.id}
+			// Performing a POST request to obtain balance information and setting its state
+			axios
+				.post("/api/accounts/findtippee", this.state.jsonUserID)
+				.then(res =>
+					{
+						this.setState({balance: res.data.balanceUSD/100})
+					})
+				.catch(err =>
+					{
+						console.log(err)
+					})
 		}
 	}
 
@@ -28,21 +48,17 @@ class TippeeDashboard extends Component {
 	render() {
 		const { user } = this.props.auth;
 
-		return (
+		return (			
 			<div style={{ height: "75vh" }} className="container valign-wrapper">
 				<div className="row">
 					<div className="landing-copy col s12 center-align">
 						<h4>
 							<b>Welcome</b> {user.name.split(" ")[0]}
 							<p className="flow-text grey-text text-darken-1">
-								{/* You are logged into{" "} */}
-								{/* <span style={{ fontFamily: "monospace" }}>Tip'N'Go</span> */}
 								<br />
-                                <b>Balance:</b>
+								<b>Your Balance:</b> ${this.state.balance}
                                 <br />
-                                {/* Your userid is {user.id} */}
                                 <br />
-                                {/* You are a {user.usertype} */}
 							</p>
 						</h4>
 						<button
@@ -70,16 +86,6 @@ class TippeeDashboard extends Component {
 							View Transaction History
 						</button>
 					</div>
-					{/* <h1 
-					style={{
-						width: "150px",
-						borderRadius: "3px",
-						position: "absolute",
-						top: "150px",
-						right: "150px"
-					}}>
-						Balance:
-					</h1> */}
 				</div>
 			</div>
 		);
@@ -97,5 +103,5 @@ const mapStateToProps = state => ({
 
 export default connect(
 	mapStateToProps,
-	{ logoutUser, obtainTransHistory }
+	{ logoutUser, obtainTransHistory}
 )(TippeeDashboard);
