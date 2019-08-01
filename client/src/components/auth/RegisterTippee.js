@@ -67,7 +67,7 @@ class RegisterTippee extends Component {
 		const { errors } = this.state;
 
 		return (
-			<div className="container">
+			<div className="container" style={{ paddingTop: "80px" }}>
 				<div className="row">
 					<div className="col s8 offset-s2">
 						<Link to="/" className="btn-flat waves-effect">
@@ -78,7 +78,7 @@ class RegisterTippee extends Component {
 								<b>Register</b> as a Tippee below
               				</h4>
 							<p className="grey-text text-darken-1">
-								Already have an account? <Link to="/login" style={{ color: "#5be359" }}>Log in</Link>
+								Already have an account? <Link to="/login" style={{color: "#01ae9b"}}>Log in</Link>
 							</p>
 						</div>
 						<form noValidate onSubmit={this.onSubmit}>
@@ -169,8 +169,8 @@ class RegisterTippee extends Component {
 
 							<div className="col s12" style={{ paddingLeft: "11.250px" }}>
 								<p className="grey-text text-darken-1">
-									By registering with Tip'N'Go, you agree to both the <a target="_blank" rel="noopener noreferrer" href="https://vignette.wikia.nocookie.net/surrealmemes/images/1/17/Flawless_picardia_by_epycwyn-dbkbyfq.png/revision/latest/scale-to-width-down/220?cb=20180418235839" style={{ color: "#5be359" }}>Tip'N'Go Terms of Service </a> 
-									and the <a target="_blank" rel="noopener noreferrer" href="https://stripe.com/connect-account/legal" style={{ color: "#5be359" }}>Stripe Connected Account Agreement</a>.
+									By registering with Tip'N'Go, you agree to both the <a target="_blank" rel="noopener noreferrer" href="https://vignette.wikia.nocookie.net/surrealmemes/images/1/17/Flawless_picardia_by_epycwyn-dbkbyfq.png/revision/latest/scale-to-width-down/220?cb=20180418235839" style={{color: "#01ae9b"}}>Tip'N'Go Terms of Service </a> 
+									and the <a target="_blank" rel="noopener noreferrer" href="https://stripe.com/connect-account/legal" style={{color: "#01ae9b"}}>Stripe Connected Account Agreement</a>.
 								</p>
 								<button
 									style={{
@@ -180,7 +180,7 @@ class RegisterTippee extends Component {
 										marginTop: "1rem"
 									}}
 									type="submit"
-									className="btn btn-large waves-effect waves-light hoverable green accent-3">
+									className="btn btn-large waves-effect waves-light hoverable accent-3">
 									Sign up
                 				</button>
 							</div>

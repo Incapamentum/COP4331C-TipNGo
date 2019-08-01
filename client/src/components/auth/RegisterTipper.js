@@ -62,7 +62,7 @@ class RegisterTipper extends Component {
 		const { errors } = this.state;
 
 		return (
-			<div className="container">
+			<div className="container" style={{ paddingTop: "80px" }}>
 				<div className="row">
 					<div className="col s8 offset-s2">
 						<Link to="/" className="btn-flat waves-effect">
@@ -73,7 +73,7 @@ class RegisterTipper extends Component {
 								<b>Register</b> as a Tipper below
               				</h4>
 							<p className="grey-text text-darken-1">
-								Already have an account? <Link to="/login" style={{ color: "#5be359" }}>Log in</Link>
+								Already have an account? <Link to="/login" style={{color: "#01ae9b"}}>Log in</Link>
 							</p>
 						</div>
 						<form noValidate onSubmit={this.onSubmit}>
@@ -142,7 +142,7 @@ class RegisterTipper extends Component {
 										marginTop: "1rem"
 									}}
 									type="submit"
-									className="btn btn-large waves-effect waves-light hoverable green accent-3">
+									className="btn btn-large waves-effect waves-light hoverable accent-3">
 									Sign up
                 				</button>
 							</div>

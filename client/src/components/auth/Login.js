@@ -76,7 +76,7 @@ class Login extends Component {
 								<b>Login</b> below
               				</h4>
 							<p className="grey-text text-darken-1">
-								Don't have an account? <Link to="/registertype" style={{ color: "#5be359" }}>Register</Link>
+								Don't have an account? <Link to="/registertype" style={{color: "#01ae9b"}}>Register</Link>
 							</p>
 						</div>
 						<form noValidate onSubmit={this.onSubmit}>
@@ -123,7 +123,7 @@ class Login extends Component {
 										marginTop: "1rem"
 									}}
 									type="submit"
-									className="btn btn-large waves-effect waves-light hoverable green accent-3">
+									className="btn btn-large waves-effect waves-light hoverable accent-3">
 									Login
                 				</button>
 							</div>

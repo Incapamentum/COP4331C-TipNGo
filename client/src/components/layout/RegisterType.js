@@ -9,11 +9,11 @@ class RegisterType extends Component {
                 <Link to="/" className="btn-flat waves-effect">
 					<i className="material-icons left">keyboard_backspace</i> Back to Welcome
             	</Link>
-				<h4>
+				<h4 style={{ paddingTop: "25px" }}>
 				    Create an account
             	</h4>
 				<p className="grey-text text-darken-1">
-					Already have an account? <Link to="/login" style={{ color: "#5be359" }}>Log in</Link>
+					Already have an account? <Link to="/login" style={{color: "#01ae9b"}}>Log in</Link>
 				</p>
                 <div className="row column-gap">
                     <div className="col s12 l5">
@@ -28,7 +28,7 @@ class RegisterType extends Component {
 								borderRadius: "3px",
 								letterSpacing: "1.5px"
 							}}
-							className="btn btn-large waves-effect waves-light hoverable green accent-3">
+							className="btn btn-large waves-effect waves-light hoverable accent-3">
 							Become a Tipper
               			</Link>
                     </div>
@@ -44,7 +44,7 @@ class RegisterType extends Component {
 								borderRadius: "3px",
 								letterSpacing: "1.5px"
 							}}
-							className="btn btn-large waves-effect waves-light hoverable green accent-3">
+							className="btn btn-large waves-effect waves-light hoverable accent-3">
 							Become a Tippee
               			</Link>
                     </div>
