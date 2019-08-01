@@ -25,6 +25,7 @@ class TipperDashboard extends Component {
 		axios
 			.post("api/accounts/findalltippees")
 			.then(res => {
+				console.log(res[1]);
 				var options = ' ';
 				for(var i = 0; i < res.length; i++)
 					options += '<option value="'+res[i].userName+'" />';
@@ -124,6 +125,5 @@ const mapStateToProps = state => ({
 
 export default connect(
 	mapStateToProps,
-	{ logoutUser, obtainTransHistory }
-	// { obtainTransHistory }
+	{ logoutUser }
 )(TipperDashboard);
