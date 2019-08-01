@@ -3,7 +3,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser, sendTips } from "../../actions/authActions";
-import { obtainTransHistory } from "../../actions/financials";
 
 class TipperDashboard extends Component {
 	constructor() {
@@ -45,6 +44,18 @@ class TipperDashboard extends Component {
 				document.getElementById('searchTippee').style.display = "block";
 				document.getElementById('tippeeList').style.visibility = "visible";
 				document.getElementById('tippeeList').style.display = "block";
+				document.getElementById('sendButton').style.visibility = "hidden";
+				//document.getElementById('tippeeList').style.display = "block";
+			})
+	}
+
+	viewStoryOnClick = e => {
+		e.preventDefault();
+		const {user} = this.props.auth;
+		axios
+			.post("api/accounts/transactionhistory", {"id":user.id})
+			.then(res => {
+				console.log(res);
 			})
 	}
 
@@ -67,6 +78,12 @@ class TipperDashboard extends Component {
 				};
 
 				this.props.sendTips(pack);
+				alert('You sent $' + this.state.amount + ' to ' + this.state.tippee);
+				this.setState({
+					tippee: "",
+					amount: "",
+					errors: {}
+				});
 			})
 
 	};
@@ -80,16 +97,6 @@ class TipperDashboard extends Component {
 					<div className="landing-copy col s12 center-align">
 						<h4>
 							<b>Welcome</b> {user.name.split(" ")[0]}
-							<p className="flow-text grey-text text-darken-1">
-								You are logged into{" "}
-								<span style={{ fontFamily: "monospace" }}>Tip'N'Go</span>
-								<br />
-								<b>This is the Tipper Dashboard</b>
-								<br />
-                                Your userid is {user.id}
-                                <br />
-                                You are a {user.usertype}
-							</p>
 						</h4>
 						<button
 							id= "sendButton"
@@ -170,7 +177,7 @@ class TipperDashboard extends Component {
 								letterSpacing: "1.5px",
 								marginTop: "1rem"
 							}}
-							onClick={this.onTransactionClick}
+							onClick={this.viewStoryOnClick}
 							className="btn btn-large waves-effect waves-light hoverable accent-3">
 							View Transaction History
 						</button>

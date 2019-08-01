@@ -3,7 +3,6 @@ import axios from "axios";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
-import { obtainTransHistory } from "../../actions/financials";
 
 class TippeeDashboard extends Component {
 
@@ -29,9 +28,9 @@ class TippeeDashboard extends Component {
 			if (user.usertype !== "tippee")
 				this.props.logoutUser();
 			// Once confirmed as a tippee, change the jsonUserID to properly have the data
-			
+
 			// this.state.jsonUserID = {"id": user.id}
-			
+
 			// Performing a POST request to obtain balance information and setting its state
 			axios
 				.post("/api/accounts/findtippee", {"id": user.id})
@@ -60,7 +59,7 @@ class TippeeDashboard extends Component {
 	render() {
 		const { user } = this.props.auth;
 
-		return (			
+		return (
 			<div style={{ height: "75vh" }} className="container valign-wrapper">
 				<div className="row">
 					<div className="landing-copy col s12 center-align">
@@ -115,5 +114,5 @@ const mapStateToProps = state => ({
 
 export default connect(
 	mapStateToProps,
-	{ logoutUser, obtainTransHistory}
+	{ logoutUser }
 )(TippeeDashboard);
