@@ -1,8 +1,9 @@
 import React, { Component } from "react";
+import axios from "axios";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
-import { obtainTransHistory } from "../../actions/transHistory";
+import { obtainTransHistory, obtainBalance } from "../../actions/financials";
 
 class TippeeDashboard extends Component {
 	componentDidMount() {
@@ -29,20 +30,17 @@ class TippeeDashboard extends Component {
 		const { user } = this.props.auth;
 
 		return (
+			
 			<div style={{ height: "75vh" }} className="container valign-wrapper">
 				<div className="row">
 					<div className="landing-copy col s12 center-align">
 						<h4>
 							<b>Welcome</b> {user.name.split(" ")[0]}
 							<p className="flow-text grey-text text-darken-1">
-								{/* You are logged into{" "} */}
-								{/* <span style={{ fontFamily: "monospace" }}>Tip'N'Go</span> */}
 								<br />
-                                <b>Balance:</b>
+                                <b>Your Balance:</b> {this.props.obtainBalance("hello")}
                                 <br />
-                                {/* Your userid is {user.id} */}
                                 <br />
-                                {/* You are a {user.usertype} */}
 							</p>
 						</h4>
 						<button
@@ -70,16 +68,6 @@ class TippeeDashboard extends Component {
 							View Transaction History
 						</button>
 					</div>
-					{/* <h1 
-					style={{
-						width: "150px",
-						borderRadius: "3px",
-						position: "absolute",
-						top: "150px",
-						right: "150px"
-					}}>
-						Balance:
-					</h1> */}
 				</div>
 			</div>
 		);
@@ -97,5 +85,5 @@ const mapStateToProps = state => ({
 
 export default connect(
 	mapStateToProps,
-	{ logoutUser, obtainTransHistory }
+	{ logoutUser, obtainTransHistory, obtainBalance }
 )(TippeeDashboard);
