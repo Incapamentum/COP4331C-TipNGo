@@ -64,7 +64,7 @@ router.post("/deletetipper", (req, res) => {
 });
 
 // @route api/accounts/transactionhistory
-// @desc Responds with array of transaction objects (not models) from 
+// @desc Responds with array of transaction objects (not models) from
 //       either the tipper or tippee document (detects which type)
 // @params id
 router.post("/transactionhistory", (req, res) => {
@@ -146,7 +146,7 @@ router.post("/setlocation", (req, res) => {
 });
 
 // @routes POST api/accounts/searchbylocation (NOT YET IMPLEMENTED)
-// @desc Retrieve Tippee account document after searching by coordinates and 
+// @desc Retrieve Tippee account document after searching by coordinates and
 //       narrowing the search by zip code and range from coordinates.
 // @params zip_code, range, latitude, longitude
 router.post("/searchbylocation", (req, res) => {
